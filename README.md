@@ -57,6 +57,36 @@ pnpm dev:all       # All apps (may be chaotic)
 
 **Note**: Mobile (Expo) should be run in a separate terminal since it has an interactive CLI.
 
+### Running on a Physical Mobile Device
+
+When testing on a physical device (via Expo Go), your phone can't reach `localhost`. You need to:
+
+1. **Find your Mac's local IP address:**
+   ```bash
+   ipconfig getifaddr en0
+   # Example output: 192.168.0.106
+   ```
+
+2. **Start the server** (already configured to listen on all interfaces):
+   ```bash
+   pnpm dev:server
+   ```
+
+3. **Start Expo with your local IP:**
+   ```bash
+   cd apps/mobile
+   LIVESTORE_SYNC_URL="http://YOUR_IP:8787/sync" npx expo start --clear
+   ```
+
+   For example:
+   ```bash
+   LIVESTORE_SYNC_URL="http://192.168.0.106:8787/sync" npx expo start --clear
+   ```
+
+4. **Ensure your phone is on the same WiFi network** as your development machine.
+
+For simulators, the default `localhost` configuration works without any changes.
+
 ### 4. Open the apps
 
 - **Web**: http://localhost:5173
