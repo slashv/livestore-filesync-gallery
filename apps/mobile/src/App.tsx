@@ -1,10 +1,10 @@
-import { Suspense } from 'react'
-import { View, Text, ActivityIndicator, StyleSheet } from 'react-native'
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
-import { StatusBar } from 'expo-status-bar'
 import { StoreRegistry } from '@livestore/livestore'
 import { StoreRegistryProvider } from '@livestore/react'
+import { StatusBar } from 'expo-status-bar'
+import { Suspense } from 'react'
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
 import { unstable_batchedUpdates as batchUpdates } from 'react-native'
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 import { TodoApp } from './components/TodoApp'
 
 // Create store registry with batch updates for React Native

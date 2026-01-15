@@ -1,4 +1,4 @@
-import type { Todo, Filter } from '../hooks/useTodos'
+import type { Filter, Todo } from '../hooks/useTodos'
 
 export function filterTodos(todos: readonly Todo[], filter: Filter): readonly Todo[] {
   switch (filter) {
@@ -6,7 +6,6 @@ export function filterTodos(todos: readonly Todo[], filter: Filter): readonly To
       return todos.filter((todo) => !todo.completed)
     case 'completed':
       return todos.filter((todo) => todo.completed)
-    case 'all':
     default:
       return todos
   }

@@ -1,17 +1,17 @@
+import { tables } from '@repo/schema'
+import { type Filter, type Todo, createTodoActions, visibleTodosQuery } from '@repo/ui'
+import { countActiveTodos, filterTodos, hasCompletedTodos } from '@repo/ui'
 import { useState } from 'react'
 import {
-  View,
+  FlatList,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  FlatList,
-  StyleSheet,
-  KeyboardAvoidingView,
-  Platform,
+  View,
 } from 'react-native'
-import { tables } from '@repo/schema'
-import { createTodoActions, visibleTodosQuery, type Filter, type Todo } from '@repo/ui'
-import { filterTodos, countActiveTodos, hasCompletedTodos } from '@repo/ui'
 import { useAppStore } from '~/livestore/store'
 
 export function TodoApp() {
@@ -96,7 +96,10 @@ export function TodoApp() {
               {filters.map((filter) => (
                 <TouchableOpacity
                   key={filter}
-                  style={[styles.filterButton, uiState.filter === filter && styles.filterButtonActive]}
+                  style={[
+                    styles.filterButton,
+                    uiState.filter === filter && styles.filterButtonActive,
+                  ]}
                   onPress={() => actions.setFilter(filter)}
                 >
                   <Text

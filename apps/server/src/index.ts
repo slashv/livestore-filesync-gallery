@@ -1,6 +1,6 @@
+import * as SyncBackend from '@livestore/sync-cf/cf-worker'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
-import * as SyncBackend from '@livestore/sync-cf/cf-worker'
 import { createAuth } from './auth'
 import type { Env } from './env'
 

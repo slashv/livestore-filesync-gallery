@@ -1,6 +1,6 @@
 import { nanoid } from '@livestore/livestore'
 import type { Store } from '@livestore/livestore'
-import { events, schema, tables } from '@repo/schema'
+import { events, type schema, tables } from '@repo/schema'
 
 type AppStore = Store<typeof schema>
 

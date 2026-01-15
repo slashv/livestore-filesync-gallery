@@ -2,8 +2,8 @@ import { makePersistedAdapter } from '@livestore/adapter-expo'
 import { nanoid } from '@livestore/livestore'
 import { useStore } from '@livestore/react'
 import { makeWsSync } from '@livestore/sync-cf/client'
+import { events, SyncPayload, schema, tables } from '@repo/schema'
 import { unstable_batchedUpdates as batchUpdates } from 'react-native'
-import { events, schema, SyncPayload, tables } from '@repo/schema'
 
 // Get sync URL from environment or use default
 const syncUrl = process.env.EXPO_PUBLIC_LIVESTORE_SYNC_URL ?? 'http://localhost:8787/sync'

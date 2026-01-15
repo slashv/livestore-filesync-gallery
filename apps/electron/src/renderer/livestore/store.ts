@@ -1,7 +1,7 @@
 import { makePersistedAdapter } from '@livestore/adapter-web'
 import { useStore } from '@livestore/react'
+import { SyncPayload, schema } from '@repo/schema'
 import { unstable_batchedUpdates as batchUpdates } from 'react-dom'
-import { schema, SyncPayload } from '@repo/schema'
 import LiveStoreWorker from './worker?worker'
 
 // Generate or retrieve a stable store ID for this Electron instance

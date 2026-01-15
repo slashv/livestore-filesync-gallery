@@ -1,4 +1,4 @@
-import { Events, makeSchema, Schema, SessionIdSymbol, State } from '@livestore/livestore'
+import { Events, Schema, SessionIdSymbol, State, makeSchema } from '@livestore/livestore'
 
 // Tables define the SQLite schema for local-first state
 export const tables = {

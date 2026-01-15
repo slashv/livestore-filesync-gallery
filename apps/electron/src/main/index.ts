@@ -1,5 +1,5 @@
-import { app, BrowserWindow, shell } from 'electron'
-import { join } from 'path'
+import { join } from 'node:path'
+import { BrowserWindow, app, shell } from 'electron'
 
 let mainWindow: BrowserWindow | null = null
 

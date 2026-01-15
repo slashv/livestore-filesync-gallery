@@ -1,6 +1,6 @@
 import { tables } from '@repo/schema'
-import { createTodoActions, visibleTodosQuery, type Filter } from '@repo/ui'
-import { filterTodos, countActiveTodos, hasCompletedTodos } from '@repo/ui'
+import { type Filter, createTodoActions, visibleTodosQuery } from '@repo/ui'
+import { countActiveTodos, filterTodos, hasCompletedTodos } from '@repo/ui'
 import { useAppStore } from '~/livestore/store'
 
 export function TodoApp() {
@@ -37,7 +37,6 @@ export function TodoApp() {
             onChange={(e) => actions.setNewTodoText(e.target.value)}
             placeholder="What needs to be done?"
             className="w-full px-4 py-4 text-lg placeholder-gray-400 focus:outline-none"
-            autoFocus
           />
         </form>
 
@@ -60,10 +59,18 @@ export function TodoApp() {
                   {todo.text}
                 </span>
                 <button
+                  type="button"
                   onClick={() => actions.deleteTodo(todo.id)}
                   className="ml-2 text-gray-400 hover:text-red-500 transition-colors"
+                  aria-label="Delete todo"
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -87,6 +94,7 @@ export function TodoApp() {
             <div className="flex gap-2">
               {(['all', 'active', 'completed'] as Filter[]).map((filter) => (
                 <button
+                  type="button"
                   key={filter}
                   onClick={() => actions.setFilter(filter)}
                   className={`px-2 py-1 rounded border ${
@@ -102,6 +110,7 @@ export function TodoApp() {
 
             {hasCompleted && (
               <button
+                type="button"
                 onClick={actions.clearCompleted}
                 className="hover:underline hover:text-gray-700"
               >

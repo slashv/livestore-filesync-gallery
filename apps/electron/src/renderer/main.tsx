@@ -1,8 +1,8 @@
-import { StrictMode, Suspense } from 'react'
-import { createRoot } from 'react-dom/client'
 import { StoreRegistry } from '@livestore/livestore'
 import { StoreRegistryProvider } from '@livestore/react'
+import { StrictMode, Suspense } from 'react'
 import { unstable_batchedUpdates as batchUpdates } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { TodoApp } from './components/TodoApp'
 import './styles.css'
 

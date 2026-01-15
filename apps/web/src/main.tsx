@@ -1,9 +1,9 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { RouterProvider, createRouter } from '@tanstack/react-router'
 import { StoreRegistry } from '@livestore/livestore'
 import { StoreRegistryProvider } from '@livestore/react'
+import { RouterProvider, createRouter } from '@tanstack/react-router'
+import { StrictMode } from 'react'
 import { unstable_batchedUpdates as batchUpdates } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { routeTree } from './routeTree.gen'
 import './styles.css'
 
