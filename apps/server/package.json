@@ -1,0 +1,27 @@
+{
+  "name": "@repo/server",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "wrangler d1 migrations apply livestore-auth --local",
+    "db:migrate:prod": "wrangler d1 migrations apply livestore-auth --remote"
+  },
+  "dependencies": {
+    "@livestore/sync-cf": "0.4.0-dev.22",
+    "better-auth": "^1.2.0",
+    "drizzle-orm": "^0.38.0",
+    "hono": "^4.6.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241218.0",
+    "@repo/tsconfig": "workspace:*",
+    "drizzle-kit": "^0.30.0",
+    "typescript": "^5.7.2",
+    "wrangler": "^3.99.0"
+  }
+}

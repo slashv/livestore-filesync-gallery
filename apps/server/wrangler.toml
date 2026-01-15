@@ -1,0 +1,41 @@
+name = "livestore-app-server"
+main = "./src/index.ts"
+compatibility_date = "2025-01-15"
+compatibility_flags = ["enable_request_signal"]
+
+# D1 Database for authentication
+[[d1_databases]]
+binding = "DB"
+database_name = "livestore-auth"
+database_id = "placeholder-will-be-replaced-after-creation"
+
+# LiveStore Sync Backend Durable Object
+[[durable_objects.bindings]]
+name = "SYNC_BACKEND_DO"
+class_name = "SyncBackendDO"
+
+# Migrations for Durable Objects with SQLite
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["SyncBackendDO"]
+
+[vars]
+BETTER_AUTH_SECRET = "development-secret-change-in-production"
+BETTER_AUTH_URL = "http://localhost:8787"
+
+# Development environment
+[env.dev]
+name = "livestore-app-server-dev"
+
+[[env.dev.d1_databases]]
+binding = "DB"
+database_name = "livestore-auth-dev"
+database_id = "placeholder-will-be-replaced-after-creation"
+
+[[env.dev.durable_objects.bindings]]
+name = "SYNC_BACKEND_DO"
+class_name = "SyncBackendDO"
+
+[[env.dev.migrations]]
+tag = "v1"
+new_sqlite_classes = ["SyncBackendDO"]
