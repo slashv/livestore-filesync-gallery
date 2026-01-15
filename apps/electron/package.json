@@ -1,0 +1,39 @@
+{
+  "name": "@repo/electron",
+  "version": "0.0.0",
+  "private": true,
+  "main": "dist/main/index.js",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "preview": "electron-vite preview",
+    "typecheck": "tsc --noEmit",
+    "package": "electron-builder"
+  },
+  "dependencies": {
+    "@livestore/adapter-web": "0.4.0-dev.22",
+    "@livestore/livestore": "0.4.0-dev.22",
+    "@livestore/peer-deps": "0.4.0-dev.22",
+    "@livestore/react": "0.4.0-dev.22",
+    "@livestore/sync-cf": "0.4.0-dev.22",
+    "@livestore/wa-sqlite": "0.4.0-dev.22",
+    "@repo/schema": "workspace:*",
+    "@repo/ui": "workspace:*",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@repo/tsconfig": "workspace:*",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "autoprefixer": "^10.4.20",
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0",
+    "electron-vite": "^2.3.0",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.0"
+  }
+}
