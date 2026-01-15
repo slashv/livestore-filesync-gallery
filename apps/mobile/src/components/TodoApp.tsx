@@ -20,9 +20,11 @@ import {
   View,
 } from 'react-native'
 import { useAppStore } from '~/livestore/store'
+import { useAuth } from './AuthProvider'
 
-export function TodoApp() {
-  const store = useAppStore()
+export function TodoApp({ userId }: { userId: string }) {
+  const store = useAppStore(userId)
+  const { signOut, user } = useAuth()
   const [inputText, setInputText] = useState('')
 
   // Reactive queries using LiveStore
@@ -42,15 +44,25 @@ export function TodoApp() {
   }
 
   const renderTodo = ({ item }: { item: Todo }) => (
-    <View style={styles.todoItem}>
+    <View testID={`todo-item-${item.id}`} style={styles.todoItem}>
       <TouchableOpacity
+        testID={`todo-checkbox-${item.id}`}
         style={[styles.checkbox, item.completed && styles.checkboxChecked]}
         onPress={() => actions.toggleTodo(item.id, item.completed)}
       >
         {item.completed && <Text style={styles.checkmark}>✓</Text>}
       </TouchableOpacity>
-      <Text style={[styles.todoText, item.completed && styles.todoTextCompleted]}>{item.text}</Text>
-      <TouchableOpacity style={styles.deleteButton} onPress={() => actions.deleteTodo(item.id)}>
+      <Text
+        testID={`todo-text-${item.id}`}
+        style={[styles.todoText, item.completed && styles.todoTextCompleted]}
+      >
+        {item.text}
+      </Text>
+      <TouchableOpacity
+        testID={`todo-delete-${item.id}`}
+        style={styles.deleteButton}
+        onPress={() => actions.deleteTodo(item.id)}
+      >
         <Text style={styles.deleteText}>×</Text>
       </TouchableOpacity>
     </View>
@@ -63,12 +75,23 @@ export function TodoApp() {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
+      {/* Header with user info and sign out */}
+      <View style={styles.header}>
+        <Text testID="user-email" style={styles.userEmail}>
+          {user?.email}
+        </Text>
+        <TouchableOpacity testID="signout-button" onPress={signOut}>
+          <Text style={styles.signOutText}>Sign out</Text>
+        </TouchableOpacity>
+      </View>
+
       <Text style={styles.title}>todos</Text>
 
       <View style={styles.card}>
         {/* Input */}
         <View style={styles.inputContainer}>
           <TextInput
+            testID="todo-input"
             style={styles.input}
             value={inputText}
             onChangeText={setInputText}
@@ -81,6 +104,7 @@ export function TodoApp() {
 
         {/* List */}
         <FlatList
+          testID="todo-list"
           data={filteredTodos}
           renderItem={renderTodo}
           keyExtractor={(item) => item.id}
@@ -103,17 +127,11 @@ export function TodoApp() {
               {filters.map((filter) => (
                 <TouchableOpacity
                   key={filter}
-                  style={[
-                    styles.filterButton,
-                    uiState.filter === filter && styles.filterButtonActive,
-                  ]}
+                  style={[styles.filterButton, uiState.filter === filter && styles.filterButtonActive]}
                   onPress={() => actions.setFilter(filter)}
                 >
                   <Text
-                    style={[
-                      styles.filterText,
-                      uiState.filter === filter && styles.filterTextActive,
-                    ]}
+                    style={[styles.filterText, uiState.filter === filter && styles.filterTextActive]}
                   >
                     {filter.charAt(0).toUpperCase() + filter.slice(1)}
                   </Text>
@@ -139,8 +157,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
-    paddingTop: 60,
+    paddingTop: 20,
     paddingHorizontal: 20,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  userEmail: {
+    fontSize: 12,
+    color: '#666',
+  },
+  signOutText: {
+    fontSize: 12,
+    color: '#b83f45',
   },
   title: {
     fontSize: 48,

@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:e2e": "playwright test --config=e2e/playwright.config.ts",
+    "test:e2e:ui": "playwright test --config=e2e/playwright.config.ts --ui"
   },
   "dependencies": {
     "@livestore/adapter-web": "catalog:",
@@ -19,11 +21,13 @@
     "@repo/core": "workspace:*",
     "@repo/schema": "workspace:*",
     "@tanstack/react-router": "^1.93.0",
+    "better-auth": "^1.2.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@livestore/devtools-vite": "catalog:",
+    "@playwright/test": "^1.48.0",
     "@repo/tsconfig": "workspace:*",
     "@tanstack/router-plugin": "^1.93.0",
     "@types/react": "^19.0.0",

@@ -9,8 +9,8 @@ import {
 import { tables } from '@repo/schema'
 import { useAppStore } from '~/livestore/store'
 
-export function TodoApp() {
-  const store = useAppStore()
+export function TodoApp({ userId }: { userId: string }) {
+  const store = useAppStore(userId)
 
   // Reactive queries using LiveStore
   const todos = store.useQuery(visibleTodosQuery)
@@ -36,6 +36,7 @@ export function TodoApp() {
         <form onSubmit={handleSubmit} className="border-b border-gray-200">
           <input
             type="text"
+            data-testid="todo-input"
             value={uiState.newTodoText}
             onChange={(e) => actions.setNewTodoText(e.target.value)}
             placeholder="What needs to be done?"
@@ -45,16 +46,22 @@ export function TodoApp() {
 
         {/* Todo List */}
         {filteredTodos.length > 0 && (
-          <ul className="divide-y divide-gray-100">
+          <ul data-testid="todo-list" className="divide-y divide-gray-100">
             {filteredTodos.map((todo) => (
-              <li key={todo.id} className="flex items-center px-4 py-3 hover:bg-gray-50">
+              <li
+                key={todo.id}
+                data-testid={`todo-item-${todo.id}`}
+                className="flex items-center px-4 py-3 hover:bg-gray-50"
+              >
                 <input
                   type="checkbox"
+                  data-testid={`todo-checkbox-${todo.id}`}
                   checked={todo.completed}
                   onChange={() => actions.toggleTodo(todo.id, todo.completed)}
                   className="h-5 w-5 rounded-full border-2 border-gray-300 text-green-500 focus:ring-green-500"
                 />
                 <span
+                  data-testid={`todo-text-${todo.id}`}
                   className={`flex-1 ml-3 text-lg ${
                     todo.completed ? 'line-through text-gray-400' : 'text-gray-700'
                   }`}
@@ -63,6 +70,7 @@ export function TodoApp() {
                 </span>
                 <button
                   type="button"
+                  data-testid={`todo-delete-${todo.id}`}
                   onClick={() => actions.deleteTodo(todo.id)}
                   className="ml-2 text-gray-400 hover:text-red-500 transition-colors"
                   aria-label="Delete todo"

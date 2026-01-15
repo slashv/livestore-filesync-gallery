@@ -9,21 +9,20 @@ import { unstable_batchedUpdates as batchUpdates } from 'react-native'
 // Get sync URL from Expo constants or use default
 const expoConfig = Constants.expoConfig?.extra ?? {}
 const syncUrl = (expoConfig.LIVESTORE_SYNC_URL as string) ?? 'http://localhost:8787/sync'
-// Shared store ID - must be the same across all clients for sync
-const storeId = (expoConfig.LIVESTORE_STORE_ID as string) ?? 'todo-app'
 
 const adapter = makePersistedAdapter({
   sync: { backend: makeWsSync({ url: syncUrl }) },
 })
 
-export function useAppStore() {
+// Accept userId as parameter - each user gets their own store
+export function useAppStore(userId: string) {
   return useStore({
-    storeId,
+    storeId: userId,
     schema,
     adapter,
     batchUpdates,
     syncPayloadSchema: SyncPayload,
-    syncPayload: { authToken: 'insecure-token-change-me' },
+    syncPayload: { authToken: userId },
     boot: (store) => {
       // Seed with a sample todo if empty
       if (store.query(tables.todos.count()) === 0) {

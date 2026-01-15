@@ -5,6 +5,8 @@ import { Suspense } from 'react'
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
 import { unstable_batchedUpdates as batchUpdates } from 'react-native'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
+import { AuthProvider, useAuth } from './components/AuthProvider'
+import { LoginScreen } from './components/LoginScreen'
 import { TodoApp } from './components/TodoApp'
 
 // Create store registry with batch updates for React Native
@@ -21,17 +23,35 @@ function LoadingFallback() {
   )
 }
 
+function AuthGate() {
+  const { isLoading, isAuthenticated, user } = useAuth()
+
+  if (isLoading) {
+    return <LoadingFallback />
+  }
+
+  if (!isAuthenticated || !user) {
+    return <LoginScreen />
+  }
+
+  return (
+    <StoreRegistryProvider storeRegistry={storeRegistry}>
+      <Suspense fallback={<LoadingFallback />}>
+        <TodoApp userId={user.id} />
+      </Suspense>
+    </StoreRegistryProvider>
+  )
+}
+
 export default function App() {
   return (
     <SafeAreaProvider>
-      <StoreRegistryProvider storeRegistry={storeRegistry}>
+      <AuthProvider>
         <SafeAreaView style={styles.container}>
           <StatusBar style="dark" />
-          <Suspense fallback={<LoadingFallback />}>
-            <TodoApp />
-          </Suspense>
+          <AuthGate />
         </SafeAreaView>
-      </StoreRegistryProvider>
+      </AuthProvider>
     </SafeAreaProvider>
   )
 }

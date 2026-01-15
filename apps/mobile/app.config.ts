@@ -1,9 +1,14 @@
 import type { ExpoConfig, ConfigContext } from 'expo/config'
 
+// Parse sync URL to get API base URL
+const syncUrl = process.env.LIVESTORE_SYNC_URL ?? 'http://localhost:8787/sync'
+const apiUrl = syncUrl.replace('/sync', '')
+
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: 'LiveStore Todo',
   slug: 'livestore-todo',
+  scheme: 'livestore-todo',
   version: '1.0.0',
   orientation: 'portrait',
   icon: './assets/icon.png',
@@ -29,8 +34,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     favicon: './assets/favicon.png',
   },
   extra: {
-    // Use LIVESTORE_SYNC_URL env var, or default to localhost for simulator
-    LIVESTORE_SYNC_URL: process.env.LIVESTORE_SYNC_URL ?? 'http://localhost:8787/sync',
-    LIVESTORE_STORE_ID: process.env.LIVESTORE_STORE_ID ?? 'todo-app',
+    // API URL for authentication
+    API_URL: apiUrl,
+    // Sync URL for LiveStore
+    LIVESTORE_SYNC_URL: syncUrl,
   },
 })

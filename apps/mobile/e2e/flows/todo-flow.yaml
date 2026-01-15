@@ -1,0 +1,54 @@
+appId: com.livestore.todo
+---
+# Clear app state for fresh user experience
+- launchApp:
+    clearState: true
+
+# Step 1: Login
+- assertVisible: "Sign In"
+- tapOn:
+    id: "email-input"
+- inputText: "test1@example.com"
+- tapOn:
+    id: "password-input"
+- inputText: "password"
+- tapOn:
+    id: "login-button"
+
+# Wait for login and todo screen to load
+- assertVisible:
+    id: "todo-input"
+    timeout: 15000
+
+# Step 2: Create a todo
+- tapOn:
+    id: "todo-input"
+- inputText: "E2E Test Todo"
+- pressKey: Enter
+
+# Verify todo appears (wait a moment for it to render)
+- assertVisible:
+    text: "E2E Test Todo"
+    timeout: 5000
+
+# Step 3: Mark todo as complete
+# The checkbox should be visible - tap the first one
+- tapOn:
+    id: "todo-checkbox-.*"
+    index: 0
+
+# Wait a moment for the state change
+- extendedWaitUntil:
+    visible:
+      id: "todo-text-.*"
+    timeout: 3000
+
+# Step 4: Delete the todo
+- tapOn:
+    id: "todo-delete-.*"
+    index: 0
+
+# Verify todo is gone
+- assertNotVisible:
+    text: "E2E Test Todo"
+    timeout: 5000

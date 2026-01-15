@@ -16,4 +16,7 @@ config.resolver.nodeModulesPaths = [
   path.resolve(monorepoRoot, 'node_modules'),
 ]
 
+// 3. Enable package exports resolution for better-auth
+config.resolver.unstable_enablePackageExports = true
+
 module.exports = config

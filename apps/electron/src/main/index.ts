@@ -1,9 +1,50 @@
 import { join } from 'node:path'
-import { BrowserWindow, app, shell } from 'electron'
+import { BrowserWindow, app, session, shell } from 'electron'
+
+const API_URL = process.env.VITE_API_URL ?? 'http://localhost:8787'
 
 let mainWindow: BrowserWindow | null = null
 
 function createWindow() {
+  // Intercept requests to add Origin header for auth requests (file:// has no origin)
+  session.defaultSession.webRequest.onBeforeSendHeaders(
+    { urls: [`${API_URL}/*`] },
+    (details, callback) => {
+      if (!details.requestHeaders['Origin']) {
+        details.requestHeaders['Origin'] = 'http://localhost:5173'
+      }
+      callback({ requestHeaders: details.requestHeaders })
+    }
+  )
+
+  // Fix cookie handling for cross-origin requests from file://
+  // Set cookies to be accessible from file:// protocol
+  session.defaultSession.webRequest.onHeadersReceived(
+    { urls: [`${API_URL}/*`] },
+    (details, callback) => {
+      const responseHeaders = { ...details.responseHeaders }
+      
+      // Modify Set-Cookie headers to work with file:// protocol
+      if (responseHeaders['set-cookie'] || responseHeaders['Set-Cookie']) {
+        const cookies = responseHeaders['set-cookie'] || responseHeaders['Set-Cookie']
+        if (cookies) {
+          const modifiedCookies = cookies.map((cookie: string) => {
+            // Remove SameSite=Lax/Strict and add SameSite=None; Secure
+            // Also remove Domain restrictions for file:// compatibility
+            return cookie
+              .replace(/;\s*SameSite=\w+/gi, '')
+              .replace(/;\s*Domain=[^;]+/gi, '')
+              + '; SameSite=None'
+          })
+          responseHeaders['Set-Cookie'] = modifiedCookies
+          delete responseHeaders['set-cookie']
+        }
+      }
+      
+      callback({ responseHeaders })
+    }
+  )
+
   mainWindow = new BrowserWindow({
     width: 900,
     height: 700,

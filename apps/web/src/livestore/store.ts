@@ -6,9 +6,6 @@ import { SyncPayload, schema } from '@repo/schema'
 import { unstable_batchedUpdates as batchUpdates } from 'react-dom'
 import LiveStoreWorker from './worker?worker'
 
-// Shared store ID - must be the same across all clients for sync
-const storeId = import.meta.env.VITE_LIVESTORE_STORE_ID ?? 'todo-app'
-
 // Sync backend URL
 const syncUrl = import.meta.env.VITE_LIVESTORE_SYNC_URL ?? 'http://localhost:8787/sync'
 
@@ -19,13 +16,14 @@ const adapter = makePersistedAdapter({
   sync: { backend: makeWsSync({ url: syncUrl }) },
 })
 
-export function useAppStore() {
+// Accept userId as parameter - each user gets their own store
+export function useAppStore(userId: string) {
   return useStore({
-    storeId,
+    storeId: userId,
     schema,
     adapter,
     batchUpdates,
     syncPayloadSchema: SyncPayload,
-    syncPayload: { authToken: 'insecure-token-change-me' },
+    syncPayload: { authToken: userId },
   })
 }
