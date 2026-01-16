@@ -51,7 +51,15 @@ app.post('/api/register', async (c) => {
 app.on(['GET', 'POST'], '/api/auth/*', async (c) => {
   try {
     const auth = createAuth(c.env)
-    return auth.handler(c.req.raw)
+    // Clone the request with mutable headers for better-auth/expo plugin
+    // The expo plugin needs to modify headers, but Cloudflare Workers have immutable headers
+    const clonedRequest = new Request(c.req.raw.url, {
+      method: c.req.raw.method,
+      headers: new Headers(c.req.raw.headers),
+      body: c.req.raw.body,
+      redirect: c.req.raw.redirect,
+    })
+    return auth.handler(clonedRequest)
   } catch (error) {
     console.error('Auth error:', error)
     return c.json({ error: String(error) }, 500)
