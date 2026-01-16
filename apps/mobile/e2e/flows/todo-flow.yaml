@@ -1,47 +1,66 @@
 appId: com.livestore.todo
 ---
-# Clear app state for fresh user experience
+# Clear keychain (where expo-secure-store keeps auth tokens)
+- clearKeychain
+
+# Clear app state and stop the app
 - launchApp:
     clearState: true
+    stopApp: true
 
-# Step 1: Login
+# Register a unique user for this test run to ensure clean state
+- runScript: ../scripts/register-user.js
+
+# Launch app fresh after registration
+- launchApp
+
+# Step 1: Login with the unique test user
 - assertVisible: "Sign In"
 - tapOn:
     id: "email-input"
-- inputText: "test1@example.com"
+- inputText: ${output.testUser.email}
 - tapOn:
     id: "password-input"
-- inputText: "password"
+- inputText: ${output.testUser.password}
 - tapOn:
     id: "login-button"
 
-# Wait for login and todo screen to load
-- assertVisible:
-    id: "todo-input"
+# Dismiss iOS "Save Password" dialog if it appears
+- runFlow:
+    when:
+      visible:
+        text: ".*assword.*"
+    commands:
+      - tapOn:
+          text: ".*ot Now.*"
+
+# Wait for todo screen to load
+- extendedWaitUntil:
+    visible:
+      id: "todo-input"
     timeout: 15000
 
-# Step 2: Create a todo
+# Delete any existing todo first (the "Welcome to livestore" default)
+- tapOn:
+    id: "todo-delete-.*"
+    index: 0
+
+# Step 2: Create a new todo
 - tapOn:
     id: "todo-input"
 - inputText: "E2E Test Todo"
 - pressKey: Enter
 
-# Verify todo appears (wait a moment for it to render)
-- assertVisible:
-    text: "E2E Test Todo"
+# Verify todo appears
+- extendedWaitUntil:
+    visible:
+      text: "E2E Test Todo"
     timeout: 5000
 
 # Step 3: Mark todo as complete
-# The checkbox should be visible - tap the first one
 - tapOn:
     id: "todo-checkbox-.*"
     index: 0
-
-# Wait a moment for the state change
-- extendedWaitUntil:
-    visible:
-      id: "todo-text-.*"
-    timeout: 3000
 
 # Step 4: Delete the todo
 - tapOn:
@@ -49,6 +68,7 @@ appId: com.livestore.todo
     index: 0
 
 # Verify todo is gone
-- assertNotVisible:
-    text: "E2E Test Todo"
+- extendedWaitUntil:
+    notVisible:
+      text: "E2E Test Todo"
     timeout: 5000

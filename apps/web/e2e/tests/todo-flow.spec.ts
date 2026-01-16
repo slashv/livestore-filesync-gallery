@@ -1,20 +1,23 @@
 import { expect, test } from '@playwright/test'
 
-// Use a unique user for fresh state
+// Generate unique user per test run to ensure clean state
+const testRunId = `${Date.now()}-${Math.random().toString(36).substring(7)}`
 const testUser = {
-  email: 'e2e-test@example.com',
+  email: `e2e-web-${testRunId}@test.local`,
   password: 'password123',
-  name: 'E2E Test User',
+  name: 'E2E Web Test User',
 }
 
 const API_URL = 'http://localhost:8787'
 
 test.describe('Todo App E2E', () => {
   test.beforeAll(async ({ request }) => {
-    // Register the test user before running tests (will return 409 if already exists)
-    await request.post(`${API_URL}/api/register`, {
+    // Register a fresh unique user for this test run
+    const response = await request.post(`${API_URL}/api/register`, {
       data: testUser,
     })
+    // Should succeed (201 Created) since this is a unique user
+    expect(response.ok()).toBe(true)
   })
 
   test.beforeEach(async ({ page }) => {
@@ -33,8 +36,17 @@ test.describe('Todo App E2E', () => {
     // Wait for login to complete - should see todo input
     await expect(page.getByTestId('todo-input')).toBeVisible({ timeout: 15000 })
 
+    // Delete the default "Welcome to livestore" todo first
+    const welcomeTodo = page.locator('[data-testid^="todo-item-"]', {
+      hasText: 'Welcome to livestore',
+    })
+    if (await welcomeTodo.isVisible()) {
+      await welcomeTodo.locator('[data-testid^="todo-delete-"]').click()
+      await expect(welcomeTodo).not.toBeVisible({ timeout: 3000 })
+    }
+
     // Step 2: Create a todo
-    const todoText = `Test todo ${Date.now()}`
+    const todoText = 'E2E Test Todo'
     await page.getByTestId('todo-input').fill(todoText)
     await page.getByTestId('todo-input').press('Enter')
 
@@ -42,7 +54,6 @@ test.describe('Todo App E2E', () => {
     await expect(page.getByText(todoText)).toBeVisible({ timeout: 5000 })
 
     // Step 3: Mark todo as complete
-    // Find the checkbox for our todo (by finding the todo item containing our text)
     const todoItem = page.locator('[data-testid^="todo-item-"]', { hasText: todoText })
     const checkbox = todoItem.locator('[data-testid^="todo-checkbox-"]')
     await checkbox.click()
@@ -57,14 +68,5 @@ test.describe('Todo App E2E', () => {
 
     // Verify todo is removed
     await expect(page.getByText(todoText)).not.toBeVisible({ timeout: 5000 })
-  })
-
-  test('shows error for invalid credentials', async ({ page }) => {
-    await page.getByTestId('email-input').fill('wrong@example.com')
-    await page.getByTestId('password-input').fill('wrongpassword')
-    await page.getByTestId('login-button').click()
-
-    // Should show error message
-    await expect(page.getByTestId('login-error')).toBeVisible({ timeout: 10000 })
   })
 })

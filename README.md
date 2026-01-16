@@ -118,11 +118,98 @@ For more details, see:
 - [LiveStore Auth Patterns](https://dev.docs.livestore.dev/patterns/auth/)
 - [better-auth Expo Integration](https://www.better-auth.com/docs/integrations/expo)
 
+## E2E Testing
+
+Each app has end-to-end tests that verify the complete todo flow: login, create todo, complete todo, and delete todo.
+
+### Web E2E Tests (Playwright)
+
+```bash
+# Start the server first
+pnpm dev:server
+
+# In another terminal, run web e2e tests
+cd apps/web
+pnpm test:e2e
+```
+
+### Electron E2E Tests (Playwright)
+
+```bash
+# Start the server first
+pnpm dev:server
+
+# In another terminal, run electron e2e tests (builds app first)
+cd apps/electron
+pnpm test:e2e
+```
+
+### Mobile E2E Tests (Maestro)
+
+Mobile e2e tests use [Maestro](https://maestro.mobile.dev/) to automate the iOS simulator.
+
+#### Prerequisites
+
+1. **Install Maestro:**
+   ```bash
+   curl -Ls "https://get.maestro.mobile.dev" | bash
+   ```
+
+2. **Install Java (required by Maestro):**
+   ```bash
+   brew install openjdk@17
+   ```
+
+3. **Build and install the app on a simulator:**
+   ```bash
+   cd apps/mobile
+   npx expo prebuild --platform ios
+   npx expo run:ios
+   ```
+
+4. **Configure environment (optional):**
+   ```bash
+   cd apps/mobile
+   cp e2e/.env.e2e.example e2e/.env.e2e
+   # Edit .env.e2e if needed (e.g., different Java path)
+   ```
+
+#### Running Mobile E2E Tests
+
+```bash
+# Start the server first
+pnpm dev:server
+
+# Start Metro bundler in another terminal
+cd apps/mobile
+pnpm start
+
+# In another terminal, run mobile e2e tests
+cd apps/mobile
+pnpm test:e2e
+```
+
+The test script will check for:
+- Maestro installation
+- Java installation
+- Running iOS simulator
+- App installed on simulator
+- Backend server running
+
 ## Scripts
 
 | Command | Description |
 |---------|-------------|
-| `pnpm dev` | Start all apps in development mode |
+| `pnpm dev` | Start web app and server |
+| `pnpm dev:web` | Start web app and server |
+| `pnpm dev:mobile` | Start mobile app (Expo) |
+| `pnpm dev:electron` | Start Electron app |
+| `pnpm dev:server` | Start sync server only |
+| `pnpm dev:all` | Start all apps |
 | `pnpm build` | Build all apps |
 | `pnpm typecheck` | Run TypeScript type checking |
+| `pnpm lint` | Run linter |
 | `pnpm clean` | Clean build artifacts |
+| `pnpm test:e2e:web` | Run web e2e tests |
+| `pnpm test:e2e:electron` | Run Electron e2e tests |
+| `pnpm test:e2e:mobile` | Run mobile e2e tests |

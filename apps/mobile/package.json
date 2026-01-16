@@ -5,11 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "typecheck": "tsc --noEmit",
-    "test:e2e": "maestro test e2e/flows/",
-    "test:e2e:flow": "maestro test e2e/flows/todo-flow.yaml"
+    "test:e2e": "./e2e/run-e2e.sh"
   },
   "dependencies": {
     "@better-auth/expo": "^1.2.0",

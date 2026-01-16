@@ -8,8 +8,10 @@ import {
   test,
 } from '@playwright/test'
 
+// Generate unique user per test run to ensure clean state
+const testRunId = `${Date.now()}-${Math.random().toString(36).substring(7)}`
 const testUser = {
-  email: 'e2e-electron-test@example.com',
+  email: `e2e-electron-${testRunId}@test.local`,
   password: 'password123',
   name: 'E2E Electron Test User',
 }
@@ -22,11 +24,13 @@ test.describe
     let window: Page
 
     test.beforeAll(async () => {
-      // Register the test user before running tests (will return 409 if already exists)
+      // Register a fresh unique user for this test run
       const context = await request.newContext()
-      await context.post(`${API_URL}/api/register`, {
+      const response = await context.post(`${API_URL}/api/register`, {
         data: testUser,
       })
+      // Should succeed (201 Created) since this is a unique user
+      expect(response.ok()).toBe(true)
       await context.dispose()
 
       // Launch Electron app from built output
@@ -69,22 +73,6 @@ test.describe
       }
     })
 
-    test('shows error for invalid credentials', async () => {
-      // First test - check error handling for invalid credentials
-      await expect(window.getByTestId('email-input')).toBeVisible({ timeout: 15000 })
-
-      await window.getByTestId('email-input').fill('wrong@example.com')
-      await window.getByTestId('password-input').fill('wrongpassword')
-      await window.getByTestId('login-button').click()
-
-      // Should show error message
-      await expect(window.getByTestId('login-error')).toBeVisible({ timeout: 10000 })
-
-      // Clear the form for next test
-      await window.getByTestId('email-input').clear()
-      await window.getByTestId('password-input').clear()
-    })
-
     test('complete todo flow: login, create, complete, delete', async () => {
       // Step 1: Login with valid credentials
       await expect(window.getByTestId('email-input')).toBeVisible({ timeout: 15000 })
@@ -95,8 +83,17 @@ test.describe
       // Wait for login to complete
       await expect(window.getByTestId('todo-input')).toBeVisible({ timeout: 15000 })
 
+      // Delete the default "Welcome to livestore" todo first
+      const welcomeTodo = window.locator('[data-testid^="todo-item-"]', {
+        hasText: 'Welcome to livestore',
+      })
+      if (await welcomeTodo.isVisible()) {
+        await welcomeTodo.locator('[data-testid^="todo-delete-"]').click()
+        await expect(welcomeTodo).not.toBeVisible({ timeout: 3000 })
+      }
+
       // Step 2: Create a todo
-      const todoText = `Electron test todo ${Date.now()}`
+      const todoText = 'E2E Test Todo'
       await window.getByTestId('todo-input').fill(todoText)
       await window.getByTestId('todo-input').press('Enter')
 

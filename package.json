@@ -14,7 +14,10 @@
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
     "clean": "turbo run clean && rm -rf node_modules",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+    "test:e2e:web": "pnpm --filter @repo/web test:e2e",
+    "test:e2e:electron": "pnpm --filter @repo/electron test:e2e",
+    "test:e2e:mobile": "pnpm --filter @repo/mobile test:e2e"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",

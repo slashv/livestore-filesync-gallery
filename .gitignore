@@ -24,6 +24,7 @@ Thumbs.db
 .env.local
 .env.*.local
 .dev.vars
+.env.e2e
 
 # Logs
 *.log
