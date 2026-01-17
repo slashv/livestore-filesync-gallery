@@ -18,7 +18,7 @@ test.describe('Registration Flow E2E', () => {
     await page.goto('/')
   })
 
-  test('complete registration flow: sign up, verify logged in, create todo', async ({ page }) => {
+  test('complete registration flow: sign up, verify logged in, see gallery', async ({ page }) => {
     // Step 1: Navigate to registration form
     await expect(page.getByTestId('email-input')).toBeVisible()
     await expect(page.getByRole('heading', { name: 'Sign In' })).toBeVisible()
@@ -38,31 +38,14 @@ test.describe('Registration Flow E2E', () => {
     // Step 3: Submit registration
     await page.getByTestId('register-button').click()
 
-    // Step 4: Verify we're logged in (should see todo input)
-    await expect(page.getByTestId('todo-input')).toBeVisible({ timeout: 15000 })
+    // Step 4: Verify we're logged in (should see gallery)
+    await expect(page.getByTestId('gallery')).toBeVisible({ timeout: 15000 })
 
-    // Delete the default "Welcome to livestore" todo first
-    const welcomeTodo = page.locator('[data-testid^="todo-item-"]', {
-      hasText: 'Welcome to livestore',
-    })
-    if (await welcomeTodo.isVisible()) {
-      await welcomeTodo.locator('[data-testid^="todo-delete-"]').click()
-      await expect(welcomeTodo).not.toBeVisible({ timeout: 3000 })
-    }
+    // Verify we see the empty state (no images yet)
+    await expect(page.getByTestId('empty-state')).toBeVisible()
 
-    // Step 5: Create a todo to verify full functionality
-    const todoText = 'E2E Registration Test Todo'
-    await page.getByTestId('todo-input').fill(todoText)
-    await page.getByTestId('todo-input').press('Enter')
-
-    // Verify todo appears in list
-    await expect(page.getByText(todoText)).toBeVisible({ timeout: 5000 })
-
-    // Clean up - delete the todo
-    const todoItem = page.locator('[data-testid^="todo-item-"]', { hasText: todoText })
-    const deleteButton = todoItem.locator('[data-testid^="todo-delete-"]')
-    await deleteButton.click()
-    await expect(page.getByText(todoText)).not.toBeVisible({ timeout: 5000 })
+    // Verify upload button is visible
+    await expect(page.getByTestId('upload-button')).toBeVisible()
   })
 
   test('shows error for duplicate email registration', async ({ page, request }) => {

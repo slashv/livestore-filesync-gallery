@@ -504,6 +504,12 @@ importers:
 
   packages/schema:
     dependencies:
+      '@livestore-filesync/core':
+        specifier: workspace:*
+        version: link:../../libs/livestore-filesync/packages/core
+      '@livestore-filesync/image':
+        specifier: workspace:*
+        version: link:../../libs/livestore-filesync/packages/image
       '@livestore/livestore':
         specifier: 'catalog:'
         version: 0.4.0-dev.22(3uwpidel46yjw6yfjfdtsjpeou)

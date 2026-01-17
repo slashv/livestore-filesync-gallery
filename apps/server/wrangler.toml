@@ -23,8 +23,14 @@ class_name = "SyncBackendDO"
 tag = "v1"
 new_sqlite_classes = ["SyncBackendDO"]
 
+# R2 bucket for file storage (production)
+[[r2_buckets]]
+binding = "FILE_BUCKET"
+bucket_name = "livestore-gallery-prod"
+
 # Production environment variables
 # Note: BETTER_AUTH_SECRET should be set via `wrangler secret put BETTER_AUTH_SECRET`
+# Note: FILE_SIGNING_SECRET should be set via `wrangler secret put FILE_SIGNING_SECRET`
 [vars]
 BETTER_AUTH_URL = "https://livestore-app-server.contact-106.workers.dev"
 
@@ -47,6 +53,12 @@ class_name = "SyncBackendDO"
 tag = "v1"
 new_sqlite_classes = ["SyncBackendDO"]
 
+# R2 bucket for file storage (development)
+[[env.dev.r2_buckets]]
+binding = "FILE_BUCKET"
+bucket_name = "livestore-gallery-dev"
+
 [env.dev.vars]
 BETTER_AUTH_URL = "https://livestore-app-server-dev.contact-106.workers.dev"
 # Note: BETTER_AUTH_SECRET should be set via `wrangler secret put BETTER_AUTH_SECRET --env dev`
+# Note: FILE_SIGNING_SECRET should be set via `wrangler secret put FILE_SIGNING_SECRET --env dev`

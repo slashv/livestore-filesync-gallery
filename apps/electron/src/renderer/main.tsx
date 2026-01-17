@@ -4,8 +4,9 @@ import { StrictMode, Suspense } from 'react'
 import { unstable_batchedUpdates as batchUpdates } from 'react-dom'
 import { createRoot } from 'react-dom/client'
 import { AuthProvider, useAuth } from './components/AuthProvider'
+import { FileSyncProvider } from './components/FileSyncProvider'
+import { Gallery } from './components/Gallery'
 import { LoginScreen } from './components/LoginScreen'
-import { TodoApp } from './components/TodoApp'
 import './styles.css'
 
 // Create store registry with batch updates for React
@@ -30,7 +31,9 @@ function AuthenticatedApp() {
           Sign out
         </button>
       </div>
-      <TodoApp userId={user.id} />
+      <FileSyncProvider userId={user.id}>
+        <Gallery userId={user.id} />
+      </FileSyncProvider>
     </div>
   )
 }

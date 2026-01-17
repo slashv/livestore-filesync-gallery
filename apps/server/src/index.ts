@@ -1,3 +1,4 @@
+import { createR2Handler } from '@livestore-filesync/r2'
 import * as SyncBackend from '@livestore/sync-cf/cf-worker'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
@@ -6,6 +7,31 @@ import type { Env } from './env'
 
 // Re-export the Durable Object class
 export { SyncBackendDO } from './sync-backend'
+
+// Create file routes handler for R2 storage
+const fileRoutes = createR2Handler<Request, Env, ExecutionContext>({
+  bucket: (env) => env.FILE_BUCKET,
+  basePath: '/api',
+  filesBasePath: '/livestore-filesync-files',
+  getSigningSecret: (env) => env.FILE_SIGNING_SECRET,
+
+  // Validate auth using existing better-auth session
+  validateAuth: async (request, env) => {
+    const auth = createAuth(env)
+    const authHeader = request.headers.get('Authorization')
+    const cookie = request.headers.get('Cookie')
+
+    const headers = new Headers()
+    if (authHeader) headers.set('Authorization', authHeader)
+    if (cookie) headers.set('Cookie', cookie)
+
+    const session = await auth.api.getSession({ headers })
+    if (!session) return null // Deny
+
+    // Return user ID as allowed prefix (user can only access their files)
+    return [`${session.user.id}/`]
+  },
+})
 
 const app = new Hono<{ Bindings: Env }>()
 
@@ -33,6 +59,27 @@ app.use(
 // Health check
 app.get('/', (c) => {
   return c.json({ status: 'ok', service: 'livestore-app-server' })
+})
+
+// File storage routes (R2)
+// Handles: /api/v1/sign/upload, /api/v1/sign/download, /api/v1/delete, /api/health
+app.all('/api/v1/*', async (c) => {
+  const response = await fileRoutes(c.req.raw, c.env, c.executionCtx)
+  if (response) return response
+  return c.json({ error: 'Not found' }, 404)
+})
+
+app.all('/api/health', async (c) => {
+  const response = await fileRoutes(c.req.raw, c.env, c.executionCtx)
+  if (response) return response
+  return c.json({ error: 'Not found' }, 404)
+})
+
+// Serve files from R2 storage
+app.all('/livestore-filesync-files/*', async (c) => {
+  const response = await fileRoutes(c.req.raw, c.env, c.executionCtx)
+  if (response) return response
+  return c.json({ error: 'Not found' }, 404)
 })
 
 // Register user endpoint

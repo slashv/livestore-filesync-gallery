@@ -1,23 +1,13 @@
-import { StoreRegistry } from '@livestore/livestore'
-import { StoreRegistryProvider } from '@livestore/react'
 import { StatusBar } from 'expo-status-bar'
-import { Suspense } from 'react'
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
-import { unstable_batchedUpdates as batchUpdates } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 import { AuthProvider, useAuth } from './components/AuthProvider'
+import { Gallery } from './components/Gallery'
 import { LoginScreen } from './components/LoginScreen'
-import { TodoApp } from './components/TodoApp'
-
-// Create store registry with batch updates for React Native
-const storeRegistry = new StoreRegistry({
-  defaultOptions: { batchUpdates },
-})
 
 function LoadingFallback() {
   return (
     <View style={styles.loading}>
-      <ActivityIndicator size="large" color="#b83f45" />
       <Text style={styles.loadingText}>Loading...</Text>
     </View>
   )
@@ -34,13 +24,8 @@ function AuthGate() {
     return <LoginScreen />
   }
 
-  return (
-    <StoreRegistryProvider storeRegistry={storeRegistry}>
-      <Suspense fallback={<LoadingFallback />}>
-        <TodoApp userId={user.id} />
-      </Suspense>
-    </StoreRegistryProvider>
-  )
+  // Mobile gallery is a placeholder - see GALLERY_IMPLEMENTATION.md Phase 6
+  return <Gallery userId={user.id} />
 }
 
 export default function App() {

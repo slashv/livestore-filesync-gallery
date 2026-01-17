@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useAuth } from '~/components/AuthProvider'
-import { TodoApp } from '~/components/TodoApp'
+import { FileSyncProvider } from '~/components/FileSyncProvider'
+import { Gallery } from '~/components/Gallery'
 
 export const Route = createFileRoute('/')({
   component: HomePage,
@@ -13,7 +14,7 @@ function HomePage() {
 
   return (
     <div className="relative">
-      <div className="absolute top-4 right-4 flex items-center gap-4">
+      <div className="absolute top-4 right-4 flex items-center gap-4 z-10">
         <span className="text-sm text-gray-600">{user.email}</span>
         <button
           type="button"
@@ -23,7 +24,9 @@ function HomePage() {
           Sign out
         </button>
       </div>
-      <TodoApp userId={user.id} />
+      <FileSyncProvider userId={user.id}>
+        <Gallery userId={user.id} />
+      </FileSyncProvider>
     </div>
   )
 }

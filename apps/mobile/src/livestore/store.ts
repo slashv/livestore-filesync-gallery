@@ -1,8 +1,7 @@
 import { makePersistedAdapter } from '@livestore/adapter-expo'
-import { nanoid } from '@livestore/livestore'
 import { useStore } from '@livestore/react'
 import { makeWsSync } from '@livestore/sync-cf/client'
-import { events, SyncPayload, schema, tables } from '@repo/schema'
+import { SyncPayload, schema } from '@repo/schema'
 import Constants from 'expo-constants'
 import { unstable_batchedUpdates as batchUpdates } from 'react-native'
 import { authClient } from '../lib/auth-client'
@@ -19,6 +18,7 @@ const adapter = makePersistedAdapter({
 })
 
 // Accept userId as parameter - each user gets their own store
+// Note: Mobile gallery is placeholder - full filesync integration is future work
 export function useAppStore(userId: string) {
   // Get session cookie from SecureStore (better-auth expo client)
   // This is needed because mobile WebSocket connections don't carry cookies automatically
@@ -33,12 +33,6 @@ export function useAppStore(userId: string) {
     syncPayload: {
       authToken: userId,
       cookie: cookie || undefined,
-    },
-    boot: (store) => {
-      // Seed with a sample todo if empty
-      if (store.query(tables.todos.count()) === 0) {
-        store.commit(events.todoCreated({ id: nanoid(), text: 'Welcome to LiveStore!' }))
-      }
     },
   })
 }
