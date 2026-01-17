@@ -27,11 +27,17 @@
     "deploy:electron:preview": "pnpm --filter @repo/electron deploy:preview",
     "deploy:electron:prod": "pnpm --filter @repo/electron deploy:prod",
     "deploy:mobile:preview": "pnpm --filter @repo/mobile deploy:preview",
-    "deploy:mobile:prod": "pnpm --filter @repo/mobile deploy:prod"
+    "deploy:mobile:prod": "pnpm --filter @repo/mobile deploy:prod",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "turbo": "^2.3.0",
     "typescript": "^5.7.2"
+  },
+  "lint-staged": {
+    "*": "biome check --no-errors-on-unmatched --files-ignore-unknown=true"
   }
 }

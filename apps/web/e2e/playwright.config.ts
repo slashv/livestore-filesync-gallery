@@ -22,20 +22,32 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
   ],
-  webServer: [
-    {
-      command: 'pnpm db:migrate && pnpm dev',
-      url: 'http://localhost:8787',
-      cwd: '../../server',
-      reuseExistingServer: !process.env.CI,
-      timeout: 120000,
-    },
-    {
-      command: 'pnpm dev',
-      url: 'http://localhost:5173',
-      cwd: '..',
-      reuseExistingServer: !process.env.CI,
-      timeout: 120000,
-    },
-  ],
+  webServer: process.env.CI
+    ? [
+        // In CI, only start the web dev server (backend is started separately in workflow)
+        {
+          command: 'pnpm dev',
+          url: 'http://localhost:5173',
+          cwd: '..',
+          reuseExistingServer: false,
+          timeout: 120000,
+        },
+      ]
+    : [
+        // Locally, start both backend and frontend
+        {
+          command: 'pnpm db:migrate && pnpm dev',
+          url: 'http://localhost:8787',
+          cwd: '../../server',
+          reuseExistingServer: true,
+          timeout: 120000,
+        },
+        {
+          command: 'pnpm dev',
+          url: 'http://localhost:5173',
+          cwd: '..',
+          reuseExistingServer: true,
+          timeout: 120000,
+        },
+      ],
 })

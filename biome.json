@@ -7,7 +7,16 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "ignore": ["node_modules", "dist", ".expo", ".turbo", ".wrangler", "release", "*.gen.ts"]
+    "ignore": [
+      "node_modules",
+      "dist",
+      ".expo",
+      ".turbo",
+      ".wrangler",
+      "release",
+      "*.gen.ts",
+      "apps/mobile/e2e/scripts/*.js"
+    ]
   },
   "organizeImports": {
     "enabled": true
