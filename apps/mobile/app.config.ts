@@ -8,11 +8,13 @@ const DEFAULT_DEV_SERVER = 'http://localhost:8787'
 // For production, set these via eas.json or CI environment
 const syncUrl = process.env.LIVESTORE_SYNC_URL ?? `${DEFAULT_DEV_SERVER}/sync`
 const apiUrl = process.env.API_URL ?? syncUrl.replace('/sync', '')
+const easProjectId = process.env.EAS_PROJECT_ID
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: 'LiveStore Todo',
   slug: 'livestore-todo',
+  owner: 'vnyberg',
   scheme: 'livestore-todo',
   version: '1.0.0',
   orientation: 'portrait',
@@ -43,5 +45,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     API_URL: apiUrl,
     // Sync URL for LiveStore
     LIVESTORE_SYNC_URL: syncUrl,
+    eas: {
+      projectId: easProjectId,
+    },
   },
 })
