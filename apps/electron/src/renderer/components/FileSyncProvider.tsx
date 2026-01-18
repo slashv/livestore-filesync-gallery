@@ -3,6 +3,7 @@ import { createImagePreprocessor } from '@livestore-filesync/image/preprocessor'
 import { initThumbnails } from '@livestore-filesync/image/thumbnails'
 import { layer as opfsLayer } from '@livestore-filesync/opfs'
 import { type ReactNode, Suspense, useEffect, useRef, useState } from 'react'
+import { getToken } from '~/lib/auth-client'
 import { useAppStore } from '~/livestore/store'
 
 // Get API URL from environment or use localhost for dev
@@ -31,10 +32,12 @@ function FileSyncProviderInner({ userId, children }: FileSyncProviderProps) {
     console.log('[FileSyncProvider] Initializing FileSync...')
 
     // Initialize file sync with image preprocessing (using canvas processor - no WASM needed)
+    // Pass bearer token for authentication (Electron uses bearer tokens, not cookies)
     disposersRef.current.fileSync = initFileSync(store, {
       fileSystem: opfsLayer(),
       remote: {
         signerBaseUrl: `${API_URL}/api`,
+        authToken: getToken() ?? undefined,
       },
       options: {
         preprocessors: {
