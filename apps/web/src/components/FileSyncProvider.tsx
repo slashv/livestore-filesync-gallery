@@ -5,20 +5,6 @@ import { layer as opfsLayer } from '@livestore-filesync/opfs'
 import { type ReactNode, Suspense, useEffect, useRef, useState } from 'react'
 import { useAppStore } from '~/livestore/store'
 
-// Custom locateFile for wasm-vips to find the wasm file
-// In dev mode, Vite serves node_modules files from /@fs/ prefix
-const vipsLocateFile = (path: string): string => {
-  if (path.endsWith('.wasm')) {
-    // In production, viteStaticCopy copies the file to /wasm-vips/
-    // In dev, we serve directly from node_modules via Vite's fs access
-    if (import.meta.env.DEV) {
-      return `/node_modules/wasm-vips/lib/${path}`
-    }
-    return `/wasm-vips/${path}`
-  }
-  return path
-}
-
 interface FileSyncProviderProps {
   userId: string
   children: ReactNode
@@ -41,7 +27,7 @@ function FileSyncProviderInner({ userId, children }: FileSyncProviderProps) {
 
     console.log('[FileSyncProvider] Initializing FileSync...')
 
-    // Initialize file sync with image preprocessing
+    // Initialize file sync with image preprocessing (using canvas processor - no WASM needed)
     disposersRef.current.fileSync = initFileSync(store, {
       fileSystem: opfsLayer(),
       remote: {
@@ -53,9 +39,7 @@ function FileSyncProviderInner({ userId, children }: FileSyncProviderProps) {
             maxDimension: 1500,
             quality: 85,
             format: 'jpeg',
-            vipsOptions: {
-              locateFile: vipsLocateFile,
-            },
+            processor: 'canvas',
           }),
         },
       },

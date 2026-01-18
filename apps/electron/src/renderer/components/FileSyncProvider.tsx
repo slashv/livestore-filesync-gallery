@@ -8,17 +8,6 @@ import { useAppStore } from '~/livestore/store'
 // Get API URL from environment or use localhost for dev
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8787'
 
-// Custom locateFile for wasm-vips to find the wasm file
-// Only needed in dev mode - in production, Vite bundles the wasm file
-const vipsLocateFile = import.meta.env.DEV
-  ? (path: string): string => {
-      if (path.endsWith('.wasm')) {
-        return `/node_modules/wasm-vips/lib/${path}`
-      }
-      return path
-    }
-  : undefined
-
 interface FileSyncProviderProps {
   userId: string
   children: ReactNode
@@ -41,44 +30,34 @@ function FileSyncProviderInner({ userId, children }: FileSyncProviderProps) {
 
     console.log('[FileSyncProvider] Initializing FileSync...')
 
-    // Initialize file sync
-    // Note: Image preprocessing with wasm-vips only works in dev mode due to Electron CSP/worker issues
+    // Initialize file sync with image preprocessing (using canvas processor - no WASM needed)
     disposersRef.current.fileSync = initFileSync(store, {
       fileSystem: opfsLayer(),
       remote: {
         signerBaseUrl: `${API_URL}/api`,
       },
-      options: import.meta.env.DEV
-        ? {
-            preprocessors: {
-              'image/*': createImagePreprocessor({
-                maxDimension: 1500,
-                quality: 85,
-                format: 'jpeg',
-                vipsOptions: {
-                  locateFile: vipsLocateFile!,
-                },
-              }),
-            },
-          }
-        : undefined,
+      options: {
+        preprocessors: {
+          'image/*': createImagePreprocessor({
+            maxDimension: 1500,
+            quality: 85,
+            format: 'jpeg',
+            processor: 'canvas',
+          }),
+        },
+      },
     })
 
     console.log('[FileSyncProvider] FileSync initialized')
 
-    // Initialize thumbnail generation
-    // Note: Only enable in dev mode - Electron production has issues with wasm-vips in data URL workers
-    if (import.meta.env.DEV) {
-      disposersRef.current.thumbnails = initThumbnails(store, {
-        sizes: { small: 200, medium: 400 },
-        format: 'webp',
-        fileSystem: opfsLayer(),
-        workerUrl: new URL('../workers/thumbnail.worker.ts', import.meta.url),
-      })
-      console.log('[FileSyncProvider] Thumbnails initialized')
-    } else {
-      console.log('[FileSyncProvider] Thumbnails disabled in production (wasm-vips worker issue)')
-    }
+    // Initialize thumbnail generation (using canvas processor - works in both dev and production)
+    disposersRef.current.thumbnails = initThumbnails(store, {
+      sizes: { small: 200, medium: 400 },
+      format: 'webp',
+      fileSystem: opfsLayer(),
+      workerUrl: new URL('../workers/thumbnail.worker.ts', import.meta.url),
+    })
+    console.log('[FileSyncProvider] Thumbnails initialized')
 
     console.log('[FileSyncProvider] Ready')
     setReady(true)
