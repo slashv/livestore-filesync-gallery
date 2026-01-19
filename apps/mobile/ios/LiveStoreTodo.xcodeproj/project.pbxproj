@@ -9,25 +9,25 @@
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		5C6A241A0B7153BFAD2983F3 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699BEEABBE61056733D356F9 /* ExpoModulesProvider.swift */; };
+		6A09348ABBD4795A93FA462F /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C11D442401992E3630B613 /* ExpoModulesProvider.swift */; };
+		7871E728836FEBD4E77E676E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 119E598E1BAAFE73F75FC5E5 /* PrivacyInfo.xcprivacy */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		C30817744E13A5DA6619075F /* libPods-LiveStoreTodo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AAC718DCD1BE5C569F159AE8 /* libPods-LiveStoreTodo.a */; };
-		EACFFE5D8A9345D723D27CEE /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = D26E3849B9DBDBB1324556F5 /* PrivacyInfo.xcprivacy */; };
 		F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11748412D0307B40044C1D9 /* AppDelegate.swift */; };
+		FEC8B67DB6E31C49680E0440 /* libPods-LiveStoreTodo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE24D7E6B6645A2137BA0B03 /* libPods-LiveStoreTodo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		119E598E1BAAFE73F75FC5E5 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = LiveStoreTodo/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* LiveStoreTodo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveStoreTodo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = LiveStoreTodo/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = LiveStoreTodo/Info.plist; sourceTree = "<group>"; };
-		699BEEABBE61056733D356F9 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-LiveStoreTodo/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		36C11D442401992E3630B613 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-LiveStoreTodo/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		8784AF54A4901A12838BE4ED /* Pods-LiveStoreTodo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveStoreTodo.debug.xcconfig"; path = "Target Support Files/Pods-LiveStoreTodo/Pods-LiveStoreTodo.debug.xcconfig"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = LiveStoreTodo/SplashScreen.storyboard; sourceTree = "<group>"; };
-		AAC718DCD1BE5C569F159AE8 /* libPods-LiveStoreTodo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LiveStoreTodo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B54F743D2064A0185E34D470 /* Pods-LiveStoreTodo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveStoreTodo.debug.xcconfig"; path = "Target Support Files/Pods-LiveStoreTodo/Pods-LiveStoreTodo.debug.xcconfig"; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		D26E3849B9DBDBB1324556F5 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = LiveStoreTodo/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		D3A48D5DA5596C87D57EE2D6 /* Pods-LiveStoreTodo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveStoreTodo.release.xcconfig"; path = "Target Support Files/Pods-LiveStoreTodo/Pods-LiveStoreTodo.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		ED2C1E2B7CE4BEA7ACA8D87B /* Pods-LiveStoreTodo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveStoreTodo.release.xcconfig"; path = "Target Support Files/Pods-LiveStoreTodo/Pods-LiveStoreTodo.release.xcconfig"; sourceTree = "<group>"; };
+		EE24D7E6B6645A2137BA0B03 /* libPods-LiveStoreTodo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LiveStoreTodo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F11748412D0307B40044C1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = LiveStoreTodo/AppDelegate.swift; sourceTree = "<group>"; };
 		F11748442D0722820044C1D9 /* LiveStoreTodo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "LiveStoreTodo-Bridging-Header.h"; path = "LiveStoreTodo/LiveStoreTodo-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -37,7 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C30817744E13A5DA6619075F /* libPods-LiveStoreTodo.a in Frameworks */,
+				FEC8B67DB6E31C49680E0440 /* libPods-LiveStoreTodo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,18 +53,44 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				D26E3849B9DBDBB1324556F5 /* PrivacyInfo.xcprivacy */,
+				119E598E1BAAFE73F75FC5E5 /* PrivacyInfo.xcprivacy */,
 			);
 			name = LiveStoreTodo;
+			sourceTree = "<group>";
+		};
+		177F6DBCF35456D90D3E7D6A /* ExpoModulesProviders */ = {
+			isa = PBXGroup;
+			children = (
+				51A3C95C6CEF95DF268C9842 /* LiveStoreTodo */,
+			);
+			name = ExpoModulesProviders;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				AAC718DCD1BE5C569F159AE8 /* libPods-LiveStoreTodo.a */,
+				EE24D7E6B6645A2137BA0B03 /* libPods-LiveStoreTodo.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		51A3C95C6CEF95DF268C9842 /* LiveStoreTodo */ = {
+			isa = PBXGroup;
+			children = (
+				36C11D442401992E3630B613 /* ExpoModulesProvider.swift */,
+			);
+			name = LiveStoreTodo;
+			sourceTree = "<group>";
+		};
+		7551056D4EAB2F9087CC09FC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8784AF54A4901A12838BE4ED /* Pods-LiveStoreTodo.debug.xcconfig */,
+				D3A48D5DA5596C87D57EE2D6 /* Pods-LiveStoreTodo.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -81,8 +107,8 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				F7D70251C0B6DE19520AEBDF /* Pods */,
-				D7AB9D3B34AF459FB346DABF /* ExpoModulesProviders */,
+				7551056D4EAB2F9087CC09FC /* Pods */,
+				177F6DBCF35456D90D3E7D6A /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -97,14 +123,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B71EB8F241D74E5CF3864B5E /* LiveStoreTodo */ = {
-			isa = PBXGroup;
-			children = (
-				699BEEABBE61056733D356F9 /* ExpoModulesProvider.swift */,
-			);
-			name = LiveStoreTodo;
-			sourceTree = "<group>";
-		};
 		BB2F792B24A3F905000567C9 /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
@@ -112,24 +130,6 @@
 			);
 			name = Supporting;
 			path = LiveStoreTodo/Supporting;
-			sourceTree = "<group>";
-		};
-		D7AB9D3B34AF459FB346DABF /* ExpoModulesProviders */ = {
-			isa = PBXGroup;
-			children = (
-				B71EB8F241D74E5CF3864B5E /* LiveStoreTodo */,
-			);
-			name = ExpoModulesProviders;
-			sourceTree = "<group>";
-		};
-		F7D70251C0B6DE19520AEBDF /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				B54F743D2064A0185E34D470 /* Pods-LiveStoreTodo.debug.xcconfig */,
-				ED2C1E2B7CE4BEA7ACA8D87B /* Pods-LiveStoreTodo.release.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,13 +140,13 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "LiveStoreTodo" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
-				5CE355302668A4E33B66C5B0 /* [Expo] Configure project */,
+				73C581B53B40F40D84A26BC5 /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				13ED5A2F598AE37A1A561004 /* [CP] Embed Pods Frameworks */,
+				E9575D284368A65D58208E49 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -196,7 +196,7 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				EACFFE5D8A9345D723D27CEE /* PrivacyInfo.xcprivacy in Resources */,
+				7871E728836FEBD4E77E676E /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,29 +242,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		13ED5A2F598AE37A1A561004 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LiveStoreTodo/Pods-LiveStoreTodo-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/React-Core-prebuilt/React.framework/React",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/ReactNativeDependencies/ReactNativeDependencies.framework/ReactNativeDependencies",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/React.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactNativeDependencies.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LiveStoreTodo/Pods-LiveStoreTodo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5CE355302668A4E33B66C5B0 /* [Expo] Configure project */ = {
+		73C581B53B40F40D84A26BC5 /* [Expo] Configure project */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -302,8 +280,6 @@
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/React-Core_privacy.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-cxxreact/React-cxxreact_privacy.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/SDWebImage/SDWebImage.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/expo-dev-launcher/EXDevLauncher.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/expo-dev-menu/EXDevMenu.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -314,12 +290,32 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/React-Core_privacy.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/React-cxxreact_privacy.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SDWebImage.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EXDevLauncher.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EXDevMenu.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LiveStoreTodo/Pods-LiveStoreTodo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E9575D284368A65D58208E49 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LiveStoreTodo/Pods-LiveStoreTodo-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/React-Core-prebuilt/React.framework/React",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/ReactNativeDependencies/ReactNativeDependencies.framework/ReactNativeDependencies",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/React.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactNativeDependencies.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LiveStoreTodo/Pods-LiveStoreTodo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -330,7 +326,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */,
-				5C6A241A0B7153BFAD2983F3 /* ExpoModulesProvider.swift in Sources */,
+				6A09348ABBD4795A93FA462F /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,7 +335,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B54F743D2064A0185E34D470 /* Pods-LiveStoreTodo.debug.xcconfig */;
+			baseConfigurationReference = 8784AF54A4901A12838BE4ED /* Pods-LiveStoreTodo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -375,7 +371,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ED2C1E2B7CE4BEA7ACA8D87B /* Pods-LiveStoreTodo.release.xcconfig */;
+			baseConfigurationReference = D3A48D5DA5596C87D57EE2D6 /* Pods-LiveStoreTodo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
