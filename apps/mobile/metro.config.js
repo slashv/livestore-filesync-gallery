@@ -19,4 +19,16 @@ config.resolver.nodeModulesPaths = [
 // 3. Enable package exports resolution for better-auth
 config.resolver.unstable_enablePackageExports = true
 
+// 4. Mock out PushNotificationIOS to prevent NativeEventEmitter errors
+// This module is deprecated and throws errors when the native module isn't linked.
+// Since we don't use push notifications, we return an empty module.
+config.resolver.resolveRequest = (context, moduleName, platform) => {
+  if (moduleName.includes('PushNotificationIOS')) {
+    return { type: 'empty' }
+  }
+
+  // Use default resolution for everything else
+  return context.resolveRequest(context, moduleName, platform)
+}
+
 module.exports = config

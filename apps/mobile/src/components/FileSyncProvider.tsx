@@ -21,16 +21,35 @@ const apiUrl = (expoConfig.API_URL as string) ?? 'http://localhost:8787'
 /**
  * Create an Expo-specific image preprocessor using ExpoImageProcessor.
  * This runs on the main thread but uses native image manipulation.
+ *
+ * Note: expo-image-manipulator requires native code and won't work in Expo Go.
+ * When running in Expo Go, preprocessing will be skipped and original images
+ * will be used directly.
  */
 function createExpoImagePreprocessor() {
   const processor = createExpoImageProcessor()
   let initialized = false
+  let unavailable = false
 
   return async (file: File): Promise<File> => {
+    // If we've determined the processor is unavailable, skip preprocessing
+    if (unavailable) {
+      return file
+    }
+
     // Initialize processor on first use
     if (!initialized) {
-      await processor.init()
-      initialized = true
+      try {
+        await processor.init()
+        initialized = true
+      } catch (error) {
+        console.warn(
+          '[FileSyncProvider] Image processor initialization failed (likely running in Expo Go):',
+          error
+        )
+        unavailable = true
+        return file
+      }
     }
 
     // Get the URI - ExpoFile has it directly, otherwise we need to handle differently
@@ -59,6 +78,15 @@ function createExpoImagePreprocessor() {
         name: file.name.replace(/\.[^/.]+$/, '.jpg'),
       })
     } catch (error) {
+      // Check if this is the "not available" error
+      if (error instanceof Error && error.message.includes('native module not available')) {
+        console.warn(
+          '[FileSyncProvider] expo-image-manipulator not available (running in Expo Go?). ' +
+            'Skipping image preprocessing.'
+        )
+        unavailable = true
+        return file
+      }
       console.error('[FileSyncProvider] Image preprocessing failed:', error)
       // Return original file if preprocessing fails
       return file

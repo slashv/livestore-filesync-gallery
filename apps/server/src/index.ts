@@ -42,6 +42,8 @@ app.use(
     origin: (origin) => {
       // Allow null/missing origin (Electron file:// requests, curl, mobile apps, etc.)
       if (!origin || origin === 'null') return '*'
+      // Allow custom app schemes (mobile development builds)
+      if (origin.startsWith('livestore-todo://')) return origin
       // Allow localhost origins (development)
       if (origin.startsWith('http://localhost:')) return origin
       // Allow production origins

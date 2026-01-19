@@ -8,7 +8,9 @@ const DEFAULT_DEV_SERVER = 'http://localhost:8787'
 // For production, set these via eas.json or CI environment
 const syncUrl = process.env.LIVESTORE_SYNC_URL ?? `${DEFAULT_DEV_SERVER}/sync`
 const apiUrl = process.env.API_URL ?? syncUrl.replace('/sync', '')
-const easProjectId = process.env.EAS_PROJECT_ID
+// EAS project ID - hardcoded because EAS CLI doesn't load .env files
+// and this value is not sensitive (it's visible in expo.dev dashboard)
+const easProjectId = 'd5a04dc3-e762-41ac-aac9-86a10cf12c4b'
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
@@ -40,7 +42,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   web: {
     favicon: './assets/favicon.png',
   },
-  plugins: ['expo-secure-store'],
+  plugins: ['expo-dev-client', 'expo-secure-store'],
   extra: {
     // API URL for authentication
     API_URL: apiUrl,

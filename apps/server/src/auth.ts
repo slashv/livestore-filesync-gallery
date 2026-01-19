@@ -30,7 +30,12 @@ export function createAuth(env: Env) {
       expiresIn: 60 * 60 * 24 * 90, // 90 days
       updateAge: 60 * 60 * 24, // 1 day
     },
-    trustedOrigins: ['*'],
+    trustedOrigins: [
+      'http://localhost:8787',
+      'http://localhost:5173',
+      'livestore-todo://',
+      'https://livestore-todo.pages.dev',
+    ],
     advanced: {
       useSecureCookies: true,
       cookies: {
