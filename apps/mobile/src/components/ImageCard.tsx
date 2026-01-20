@@ -45,9 +45,18 @@ export function ImageCard({ image, store, onDelete, onUpdateTitle }: ImageCardPr
   // Resolve file URL on mount and when file updates
   // biome-ignore lint/correctness/useExhaustiveDependencies: file.updatedAt intentionally triggers re-resolution
   useEffect(() => {
-    resolveFileUrl(file.id).then((url) => {
-      if (url) setSrc(url)
-    })
+    console.log('[ImageCard] Resolving file URL for', file.id, 'path:', file.path)
+    resolveFileUrl(file.id)
+      .then((url) => {
+        console.log('[ImageCard] Resolved file URL:', { fileId: file.id, url })
+        if (url) setSrc(url)
+      })
+      .catch((error) => {
+        console.error('[ImageCard] Failed to resolve file URL:', {
+          fileId: file.id,
+          error: JSON.stringify(error, null, 2),
+        })
+      })
   }, [file.id, file.updatedAt])
 
   // Update edit title when image title changes (sync from other clients)

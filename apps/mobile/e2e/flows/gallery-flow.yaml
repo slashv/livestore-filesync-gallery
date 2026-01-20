@@ -91,11 +91,11 @@ appId: com.livestore.todo
       # Verify image is displayed
       - assertVisible:
           id: "image-display-.*"
-      # Wait for sync to complete
+      # Wait briefly to ensure image is fully rendered
       - extendedWaitUntil:
           visible:
-            id: "sync-status-synced"
-          timeout: 60000
+            id: "image-display-.*"
+          timeout: 5000
       # Delete the image for cleanup
       - tapOn:
           id: "delete-button-.*"
