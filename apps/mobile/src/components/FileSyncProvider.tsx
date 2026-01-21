@@ -1,6 +1,7 @@
 import { initFileSync } from '@livestore-filesync/core'
 import {
   ExpoFile,
+  HashServiceLive,
   createExpoImageProcessor,
   layer as expoFileSystemLayer,
 } from '@livestore-filesync/expo'
@@ -116,6 +117,7 @@ function FileSyncProviderInner({ userId, children }: FileSyncProviderProps) {
     // NOTE: Image preprocessing is temporarily disabled to debug upload issues
     disposersRef.current.fileSync = initFileSync(store, {
       fileSystem: expoFileSystemLayer(),
+      hashService: HashServiceLive, // Required for React Native (uses expo-crypto)
       remote: {
         signerBaseUrl: `${apiUrl}/api`,
         // Include auth cookie in headers for mobile
