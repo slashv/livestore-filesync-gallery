@@ -1,6 +1,12 @@
-# LiveStore Turbo
+# LiveStore Turbo FileSync
 
 > **Note:** This project targets LiveStore 0.4, which is currently in beta.
+
+This is an experimental repository for testing a [LiveStore FileSync](https://github.com/slashv/livestore-filesync) in a cross-platform image gallery app.
+
+Based on and currently more mature than the base template [LiveStore Turbo](https://github.com/slashv/livestore-turbo)
+
+---
 
 A cross-platform app template with real-time sync across web, desktop, and mobile. Uses [LiveStore](https://livestore.dev) for local-first data, [better-auth](https://better-auth.com) for authentication, and [Cloudflare](https://cloudflare.com) for deployment.
 
