@@ -40,13 +40,17 @@ export function FileSyncImage({
     queryDb(tables.files.where({ id: fileId }).first(), { label: 'filesync-image-file' })
   )
 
+  if (!file || !localFileState || !thumbnailStateDoc) {
+    return null
+  }
+
   const [src, setSrc] = useState<string | null>(null)
   const [isUsingThumbnail, setIsUsingThumbnail] = useState(false)
 
-  const displayState = file ? getFileDisplayState(file, localFileState?.localFiles ?? {}) : null
-  const canDisplay = displayState?.canDisplay ?? false
-  const isUploading = displayState?.isUploading ?? false
-  const isDownloading = displayState?.isDownloading ?? false
+  const { canDisplay, isUploading, isDownloading } = getFileDisplayState(
+    file,
+    localFileState.localFiles
+  )
 
   const thumbnailStatus =
     size === 'full'

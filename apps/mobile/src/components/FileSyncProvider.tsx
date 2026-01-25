@@ -1,10 +1,5 @@
 import { initFileSync } from '@livestore-filesync/core'
-import {
-  ExpoFile,
-  HashServiceLive,
-  createExpoImageProcessor,
-  layer as expoFileSystemLayer,
-} from '@livestore-filesync/expo'
+import { HashServiceLive, layer as expoFileSystemLayer } from '@livestore-filesync/expo'
 import Constants from 'expo-constants'
 import { type ReactNode, useEffect, useRef, useState } from 'react'
 import { authClient } from '../lib/auth-client'
@@ -27,73 +22,73 @@ const apiUrl = (expoConfig.API_URL as string) ?? 'http://localhost:8787'
  * When running in Expo Go, preprocessing will be skipped and original images
  * will be used directly.
  */
-function createExpoImagePreprocessor() {
-  const processor = createExpoImageProcessor()
-  let initialized = false
-  let unavailable = false
+// function createExpoImagePreprocessor(): any {
+//   const processor = createExpoImageProcessor()
+//   let initialized = false
+//   let unavailable = false
 
-  return async (file: File): Promise<File> => {
-    // If we've determined the processor is unavailable, skip preprocessing
-    if (unavailable) {
-      return file
-    }
+//   return async (file: File): Promise<File> => {
+//     // If we've determined the processor is unavailable, skip preprocessing
+//     if (unavailable) {
+//       return file
+//     }
 
-    // Initialize processor on first use
-    if (!initialized) {
-      try {
-        await processor.init()
-        initialized = true
-      } catch (error) {
-        console.warn(
-          '[FileSyncProvider] Image processor initialization failed (likely running in Expo Go):',
-          error
-        )
-        unavailable = true
-        return file
-      }
-    }
+//     // Initialize processor on first use
+//     if (!initialized) {
+//       try {
+//         await processor.init()
+//         initialized = true
+//       } catch (error) {
+//         console.warn(
+//           '[FileSyncProvider] Image processor initialization failed (likely running in Expo Go):',
+//           error
+//         )
+//         unavailable = true
+//         return file
+//       }
+//     }
 
-    // Get the URI - ExpoFile has it directly, otherwise we need to handle differently
-    let sourceUri: string
+//     // Get the URI - ExpoFile has it directly, otherwise we need to handle differently
+//     let sourceUri: string
 
-    if ('uri' in file && typeof (file as ExpoFile).uri === 'string') {
-      sourceUri = (file as ExpoFile).uri
-    } else {
-      // For regular File objects, we'd need to write to temp first
-      // This shouldn't happen in normal mobile flow since we use ExpoFile
-      console.warn('[FileSyncProvider] Received non-ExpoFile, skipping preprocessing')
-      return file
-    }
+//     if ('uri' in file && typeof (file as ExpoFile).uri === 'string') {
+//       sourceUri = (file as ExpoFile).uri
+//     } else {
+//       // For regular File objects, we'd need to write to temp first
+//       // This shouldn't happen in normal mobile flow since we use ExpoFile
+//       console.warn('[FileSyncProvider] Received non-ExpoFile, skipping preprocessing')
+//       return file
+//     }
 
-    try {
-      // Process the image: resize to max 1500px, convert to JPEG
-      const result = await processor.process(sourceUri, {
-        maxDimension: 1500,
-        format: 'jpeg',
-        quality: 85,
-      })
+//     try {
+//       // Process the image: resize to max 1500px, convert to JPEG
+//       const result = await processor.process(sourceUri, {
+//         maxDimension: 1500,
+//         format: 'jpeg',
+//         quality: 85,
+//       })
 
-      // Return as ExpoFile
-      return ExpoFile.fromUri(result.uri, {
-        type: result.mimeType,
-        name: file.name.replace(/\.[^/.]+$/, '.jpg'),
-      })
-    } catch (error) {
-      // Check if this is the "not available" error
-      if (error instanceof Error && error.message.includes('native module not available')) {
-        console.warn(
-          '[FileSyncProvider] expo-image-manipulator not available (running in Expo Go?). ' +
-            'Skipping image preprocessing.'
-        )
-        unavailable = true
-        return file
-      }
-      console.error('[FileSyncProvider] Image preprocessing failed:', error)
-      // Return original file if preprocessing fails
-      return file
-    }
-  }
-}
+//       // Return as ExpoFile
+//       return ExpoFile.fromUri(result.uri, {
+//         type: result.mimeType,
+//         name: file.name.replace(/\.[^/.]+$/, '.jpg'),
+//       })
+//     } catch (error) {
+//       // Check if this is the "not available" error
+//       if (error instanceof Error && error.message.includes('native module not available')) {
+//         console.warn(
+//           '[FileSyncProvider] expo-image-manipulator not available (running in Expo Go?). ' +
+//             'Skipping image preprocessing.'
+//         )
+//         unavailable = true
+//         return file
+//       }
+//       console.error('[FileSyncProvider] Image preprocessing failed:', error)
+//       // Return original file if preprocessing fails
+//       return file
+//     }
+//   }
+// }
 
 function FileSyncProviderInner({ userId, children }: FileSyncProviderProps) {
   const store = useAppStore(userId)
