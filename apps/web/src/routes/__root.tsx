@@ -8,7 +8,8 @@ export const Route = createRootRoute({
 })
 
 function AuthGate() {
-  const { isLoading, isAuthenticated } = useAuth()
+  const auth = useAuth()
+  const { isLoading, isAuthenticated } = auth
 
   if (isLoading) {
     return (
@@ -19,7 +20,7 @@ function AuthGate() {
   }
 
   if (!isAuthenticated) {
-    return <LoginScreen auth={useAuth()} />
+    return <LoginScreen auth={auth} />
   }
 
   return <Outlet />
