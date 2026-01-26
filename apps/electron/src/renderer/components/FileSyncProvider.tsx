@@ -2,6 +2,7 @@ import { initFileSync } from '@livestore-filesync/core'
 import { createImagePreprocessor } from '@livestore-filesync/image/preprocessor'
 import { initThumbnails } from '@livestore-filesync/image/thumbnails'
 import { layer as opfsLayer } from '@livestore-filesync/opfs'
+import { tables } from '@repo/store'
 import { useAppStore } from '@repo/ui'
 import { type ReactNode, Suspense, useEffect, useRef, useState } from 'react'
 import { getToken } from '~/lib/auth-client'
@@ -66,6 +67,7 @@ function FileSyncProviderInner({ children }: FileSyncProviderProps) {
       fileSystem: opfsLayer(),
       workerUrl: new URL('../workers/thumbnail.worker.ts', import.meta.url),
       userId, // Pass userId to detect user changes
+      schema: { tables },
     })
     console.log('[FileSyncProvider] Thumbnails initialized')
 

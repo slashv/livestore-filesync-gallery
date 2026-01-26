@@ -34,8 +34,8 @@ export function ConnectionStatus({ className = '' }: ConnectionStatusProps) {
         title={!isSyncEnabled ? 'Sync disabled' : isOnline ? 'Online' : 'Offline'}
       />
 
-      {/* Toggle switch */}
-      <button
+      {/* Toggle switch - temporarily hidden due to issues */}
+      {/* <button
         type="button"
         role="switch"
         aria-checked={isSyncEnabled}
@@ -57,7 +57,7 @@ export function ConnectionStatus({ className = '' }: ConnectionStatusProps) {
             ${isSyncEnabled ? 'translate-x-4' : 'translate-x-0'}
           `}
         />
-      </button>
+      </button> */}
     </div>
   )
 }

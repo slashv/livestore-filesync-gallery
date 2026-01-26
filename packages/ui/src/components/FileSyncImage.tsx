@@ -10,6 +10,8 @@ type FillMode = 'contain' | 'cover' | 'fill' | 'none' | 'scale-down'
 export interface FileSyncImageState {
   isUploading: boolean
   isDownloading: boolean
+  isUploadQueued: boolean
+  isDownloadQueued: boolean
   canDisplay: boolean
   isUsingThumbnail: boolean
   src: string | null
@@ -47,10 +49,8 @@ export function FileSyncImage({
   const [src, setSrc] = useState<string | null>(null)
   const [isUsingThumbnail, setIsUsingThumbnail] = useState(false)
 
-  const { canDisplay, isUploading, isDownloading } = getFileDisplayState(
-    file,
-    localFileState.localFiles
-  )
+  const { canDisplay, isUploading, isDownloading, isUploadQueued, isDownloadQueued } =
+    getFileDisplayState(file, localFileState.localFiles)
 
   const thumbnailStatus =
     size === 'full'
@@ -105,6 +105,8 @@ export function FileSyncImage({
   const state: FileSyncImageState = {
     isUploading,
     isDownloading,
+    isUploadQueued,
+    isDownloadQueued,
     canDisplay,
     isUsingThumbnail,
     src,
@@ -120,7 +122,13 @@ export function FileSyncImage({
       >
         {isUploading && 'Uploading...'}
         {isDownloading && 'Downloading...'}
-        {!isUploading && !isDownloading && 'Waiting for file...'}
+        {!isUploading && !isDownloading && isUploadQueued && 'Queued'}
+        {!isUploading && !isDownloading && isDownloadQueued && 'Queued'}
+        {!isUploading &&
+          !isDownloading &&
+          !isUploadQueued &&
+          !isDownloadQueued &&
+          'Waiting for file...'}
         {children?.(state)}
       </div>
     )

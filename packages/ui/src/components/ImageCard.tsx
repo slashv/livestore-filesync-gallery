@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { useAppStore } from '../AppStoreProvider'
 import { FileSyncImage } from './FileSyncImage'
 import { ImageDebugInfo } from './ImageDebugInfo'
+import { ImagePreview } from './ImagePreview'
 
 type Image = typeof tables.images.rowSchema.Type
 
@@ -30,6 +31,7 @@ export function ImageCard({
 
   const [isEditing, setIsEditing] = useState(false)
   const [editTitle, setEditTitle] = useState(image.title)
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false)
 
   // Update edit title when image title changes (sync from other clients)
   useEffect(() => {
@@ -55,14 +57,26 @@ export function ImageCard({
       className="overflow-hidden bg-white rounded-lg shadow"
       data-testid={`image-card-${image.id}`}
     >
-      <div className="relative bg-gray-100 aspect-square">
+      <button
+        type="button"
+        className="relative w-full bg-gray-100 cursor-pointer aspect-square"
+        onClick={() => setIsPreviewOpen(true)}
+        data-testid={`image-preview-button-${image.id}`}
+      >
         <FileSyncImage
           fileId={file.id}
-          size={enableThumbnails ? 'small' : 'full'}
+          size={enableThumbnails ? 'large' : 'full'}
           className="object-cover w-full h-full"
           alt={image.title}
         >
-          {({ canDisplay, isUploading, isDownloading, isUsingThumbnail }) => (
+          {({
+            canDisplay,
+            isUploading,
+            isDownloading,
+            isUploadQueued,
+            isDownloadQueued,
+            isUsingThumbnail,
+          }) => (
             <>
               {/* Image type indicator (thumbnail vs original) */}
               {canDisplay && (
@@ -76,7 +90,7 @@ export function ImageCard({
                 </div>
               )}
 
-              {/* Sync status overlay */}
+              {/* Sync status overlay - active transfers */}
               {canDisplay && (isUploading || isDownloading) && (
                 <div
                   className={`absolute top-2 right-2 px-2 py-0.5 rounded text-xs font-medium text-white flex items-center gap-1 ${
@@ -88,10 +102,27 @@ export function ImageCard({
                   {isUploading ? 'Uploading' : 'Downloading'}
                 </div>
               )}
+
+              {/* Sync status overlay - queued transfers */}
+              {canDisplay &&
+                !isUploading &&
+                !isDownloading &&
+                (isUploadQueued || isDownloadQueued) && (
+                  <div
+                    className="absolute top-2 right-2 px-2 py-0.5 rounded text-xs font-medium text-white bg-gray-500"
+                    data-testid={`sync-status-${image.id}`}
+                  >
+                    Queued
+                  </div>
+                )}
             </>
           )}
         </FileSyncImage>
-      </div>
+      </button>
+
+      {isPreviewOpen && (
+        <ImagePreview fileId={file.id} alt={image.title} onClose={() => setIsPreviewOpen(false)} />
+      )}
 
       <div className="p-3">
         <div className="flex gap-2 items-center">
