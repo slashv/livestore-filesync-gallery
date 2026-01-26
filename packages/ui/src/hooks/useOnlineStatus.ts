@@ -1,4 +1,4 @@
-import { isOnline as getIsOnline, onFileSyncEvent, setOnline } from '@livestore-filesync/core'
+import { isOnline as getIsOnline, onFileSyncEvent } from '@livestore-filesync/core'
 import { useCallback, useEffect, useState } from 'react'
 
 declare global {
@@ -85,12 +85,8 @@ export function useOnlineStatus(): UseOnlineStatusReturn {
     // Update local state
     setIsSyncEnabled(newEnabled)
 
-    // Control filesync
-    try {
-      setOnline(newEnabled)
-    } catch (e) {
-      console.warn('[useOnlineStatus] Failed to set filesync online status:', e)
-    }
+    // Dispatch browser online/offline event - FileSync listens to these automatically
+    window.dispatchEvent(new Event(newEnabled ? 'online' : 'offline'))
 
     // Control LiveStore sync via _dev API
     const debugStore = window.__debugLiveStore?.default
