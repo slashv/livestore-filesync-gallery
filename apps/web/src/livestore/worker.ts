@@ -1,6 +1,6 @@
 import { makeWorker } from '@livestore/adapter-web/worker'
 import { makeWsSync } from '@livestore/sync-cf/client'
-import { schema } from '@repo/schema'
+import { schema } from '@repo/store'
 
 // In production, use the full server URL; in dev, use same origin (proxied by Vite)
 const syncUrl = import.meta.env.VITE_SYNC_URL ?? `${globalThis.location.origin}/sync`

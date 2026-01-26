@@ -1,4 +1,4 @@
-import { AppStoreProvider } from '@repo/core'
+import { AppStoreProvider } from '@repo/ui'
 import { createFileRoute } from '@tanstack/react-router'
 import { useAuth } from '~/components/AuthProvider'
 import { FileSyncProvider } from '~/components/FileSyncProvider'

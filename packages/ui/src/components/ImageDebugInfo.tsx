@@ -1,7 +1,7 @@
 import { getFileDisplayState } from '@livestore-filesync/core'
 import { queryDb } from '@livestore/livestore'
-import { useAppStore } from '@repo/core'
-import { tables } from '@repo/schema'
+import { tables } from '@repo/store'
+import { useAppStore } from '../AppStoreProvider'
 
 export interface ImageDebugInfoProps {
   fileId: string

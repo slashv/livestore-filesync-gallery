@@ -1,9 +1,9 @@
 import { getFileDisplayState, resolveFileUrl } from '@livestore-filesync/core'
 import { resolveThumbnailUrl } from '@livestore-filesync/image/thumbnails'
 import { queryDb } from '@livestore/livestore'
-import { useAppStore } from '@repo/core'
-import { tables } from '@repo/schema'
+import { tables } from '@repo/store'
 import { type ReactNode, useEffect, useState } from 'react'
+import { useAppStore } from '../AppStoreProvider'
 
 type FillMode = 'contain' | 'cover' | 'fill' | 'none' | 'scale-down'
 

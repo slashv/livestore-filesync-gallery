@@ -1,8 +1,10 @@
 import { saveFile } from '@livestore-filesync/core'
 import { ExpoFile } from '@livestore-filesync/expo'
-import { imagesQuery } from '@repo/core'
-import { events } from '@repo/schema'
+import { queryDb } from '@livestore/livestore'
+import { events, tables } from '@repo/store'
 import * as ImagePicker from 'expo-image-picker'
+
+const imagesQuery = queryDb(tables.images.where({ deletedAt: null }), { label: 'images' })
 import { useCallback, useState } from 'react'
 import {
   ActivityIndicator,

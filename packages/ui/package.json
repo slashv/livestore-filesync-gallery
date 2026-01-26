@@ -14,13 +14,13 @@
     }
   },
   "scripts": {
+    "clean": "rm -rf dist",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@livestore-filesync/core": "workspace:*",
     "@livestore-filesync/image": "workspace:*",
-    "@repo/core": "workspace:*",
-    "@repo/schema": "workspace:*"
+    "@repo/store": "workspace:*"
   },
   "peerDependencies": {
     "@livestore/livestore": "catalog:",

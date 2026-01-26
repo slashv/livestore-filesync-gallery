@@ -1,5 +1,5 @@
 {
-  "name": "@repo/core",
+  "name": "@repo/store",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -10,22 +10,18 @@
     }
   },
   "scripts": {
+    "clean": "rm -rf dist",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@repo/schema": "workspace:*",
+    "@livestore/livestore": "catalog:",
+    "@livestore/peer-deps": "catalog:",
+    "@livestore-filesync/core": "workspace:*",
+    "@livestore-filesync/image": "workspace:*",
     "effect": "catalog:"
   },
-  "peerDependencies": {
-    "@livestore/livestore": "catalog:",
-    "@livestore/react": "catalog:",
-    "react": "^19.0.0"
-  },
   "devDependencies": {
-    "@livestore/livestore": "catalog:",
-    "@livestore/react": "catalog:",
     "@repo/tsconfig": "workspace:*",
-    "@types/react": "^19.0.0",
     "typescript": "^5.7.2"
   }
 }

@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "clean": "rm -rf dist .wrangler",
     "dev": "wrangler dev",
     "deploy:preview": "./scripts/deploy.sh preview",
     "deploy:prod": "./scripts/deploy.sh prod",

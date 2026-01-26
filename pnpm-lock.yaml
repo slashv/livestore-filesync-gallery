@@ -95,12 +95,9 @@ importers:
       '@livestore/wa-sqlite':
         specifier: 'catalog:'
         version: 0.4.0-dev.22
-      '@repo/core':
+      '@repo/store':
         specifier: workspace:*
-        version: link:../../packages/core
-      '@repo/schema':
-        specifier: workspace:*
-        version: link:../../packages/schema
+        version: link:../../packages/store
       '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -195,12 +192,9 @@ importers:
       '@livestore/sync-cf':
         specifier: 'catalog:'
         version: 0.4.0-dev.22(2iaeke36fl34rklr4cpdvialvi)
-      '@repo/core':
+      '@repo/store':
         specifier: workspace:*
-        version: link:../../packages/core
-      '@repo/schema':
-        specifier: workspace:*
-        version: link:../../packages/schema
+        version: link:../../packages/store
       better-auth:
         specifier: ^1.2.0
         version: 1.4.13(react-dom@19.2.3(react@19.1.0))(react@19.1.0)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@25.0.8)(jiti@1.21.7)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
@@ -335,12 +329,9 @@ importers:
       '@livestore/wa-sqlite':
         specifier: 'catalog:'
         version: 0.4.0-dev.22
-      '@repo/core':
+      '@repo/store':
         specifier: workspace:*
-        version: link:../../packages/core
-      '@repo/schema':
-        specifier: workspace:*
-        version: link:../../packages/schema
+        version: link:../../packages/store
       '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -529,35 +520,7 @@ importers:
         specifier: ^3.2.0
         version: 3.2.4(@types/debug@4.1.12)(@types/node@25.0.8)(jiti@1.21.7)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
 
-  packages/core:
-    dependencies:
-      '@repo/schema':
-        specifier: workspace:*
-        version: link:../schema
-      effect:
-        specifier: 'catalog:'
-        version: 3.19.12
-      react:
-        specifier: ^19.0.0
-        version: 19.1.0
-    devDependencies:
-      '@livestore/livestore':
-        specifier: 'catalog:'
-        version: 0.4.0-dev.22(3uwpidel46yjw6yfjfdtsjpeou)
-      '@livestore/react':
-        specifier: 'catalog:'
-        version: 0.4.0-dev.22(c4hyrln2j7osqna3qzwq3caiw4)
-      '@repo/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      '@types/react':
-        specifier: ^19.0.0
-        version: 19.1.17
-      typescript:
-        specifier: ^5.7.2
-        version: 5.9.3
-
-  packages/schema:
+  packages/store:
     dependencies:
       '@livestore-filesync/core':
         specifier: workspace:*
@@ -592,12 +555,9 @@ importers:
       '@livestore-filesync/image':
         specifier: workspace:*
         version: link:../../libs/livestore-filesync/packages/image
-      '@repo/core':
+      '@repo/store':
         specifier: workspace:*
-        version: link:../core
-      '@repo/schema':
-        specifier: workspace:*
-        version: link:../schema
+        version: link:../store
     devDependencies:
       '@livestore/livestore':
         specifier: 'catalog:'

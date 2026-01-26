@@ -4,6 +4,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
+    "clean": "rm -rf .expo dist android/app/build ios/build",
     "dev": "expo start",
     "start": "expo start",
     "android": "expo run:android",
@@ -28,8 +29,7 @@
     "@livestore/peer-deps": "catalog:",
     "@livestore/react": "catalog:",
     "@livestore/sync-cf": "catalog:",
-    "@repo/core": "workspace:*",
-    "@repo/schema": "workspace:*",
+    "@repo/store": "workspace:*",
     "better-auth": "^1.2.0",
     "expo": "~54.0.0",
     "expo-application": "~7.0.0",

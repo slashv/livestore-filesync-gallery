@@ -1,8 +1,11 @@
 import { saveFile } from '@livestore-filesync/core'
-import { imagesQuery, useAppStore } from '@repo/core'
-import { events } from '@repo/schema'
+import { queryDb } from '@livestore/livestore'
+import { events, tables } from '@repo/store'
 import { type ReactNode, useRef } from 'react'
+import { useAppStore } from '../AppStoreProvider'
 import { ImageCard } from './ImageCard'
+
+const imagesQuery = queryDb(tables.images.where({ deletedAt: null }), { label: 'images' })
 
 export interface GalleryProps {
   /** Content to render before the title (e.g., spacer for electron title bar) */

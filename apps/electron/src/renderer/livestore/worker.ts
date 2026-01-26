@@ -1,6 +1,6 @@
 import { makeWorker } from '@livestore/adapter-web/worker'
 import { makeWsSync } from '@livestore/sync-cf/client'
-import { schema } from '@repo/schema'
+import { schema } from '@repo/store'
 
 // Sync URL - use env var if set (production), otherwise default to localhost
 const syncUrl = import.meta.env.VITE_SYNC_URL ?? 'http://localhost:8787/sync'

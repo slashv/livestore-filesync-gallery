@@ -1,6 +1,6 @@
 import type { Store } from '@livestore/livestore'
 import type { ReactApi } from '@livestore/react'
-import type { schema } from '@repo/schema'
+import type { schema } from '@repo/store'
 import { createContext, useContext } from 'react'
 
 export type AppStore = Store<typeof schema> & ReactApi

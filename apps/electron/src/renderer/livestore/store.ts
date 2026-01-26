@@ -1,7 +1,7 @@
 import { makePersistedAdapter } from '@livestore/adapter-web'
 import LiveStoreSharedWorker from '@livestore/adapter-web/shared-worker?sharedworker'
 import { useStore } from '@livestore/react'
-import { SyncPayload, schema } from '@repo/schema'
+import { SyncPayload, schema } from '@repo/store'
 import { unstable_batchedUpdates as batchUpdates } from 'react-dom'
 import { useAuth } from '../components/AuthProvider'
 import { getToken } from '../lib/auth-client'

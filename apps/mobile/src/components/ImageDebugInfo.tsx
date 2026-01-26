@@ -2,7 +2,7 @@ import { getFileDisplayState } from '@livestore-filesync/core'
 import type { Store } from '@livestore/livestore'
 import { queryDb } from '@livestore/livestore'
 import type { ReactApi } from '@livestore/react'
-import { type schema, tables } from '@repo/schema'
+import { type schema, tables } from '@repo/store'
 import { useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 

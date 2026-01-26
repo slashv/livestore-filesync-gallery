@@ -1,7 +1,6 @@
 import { StoreRegistry } from '@livestore/livestore'
 import { StoreRegistryProvider } from '@livestore/react'
-import { AppStoreProvider } from '@repo/core'
-import { LoginScreen } from '@repo/ui'
+import { AppStoreProvider, LoginScreen } from '@repo/ui'
 import { StrictMode, Suspense } from 'react'
 import { unstable_batchedUpdates as batchUpdates } from 'react-dom'
 import { createRoot } from 'react-dom/client'

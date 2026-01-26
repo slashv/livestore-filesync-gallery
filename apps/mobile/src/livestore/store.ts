@@ -1,7 +1,7 @@
 import { makePersistedAdapter } from '@livestore/adapter-expo'
 import { useStore } from '@livestore/react'
 import { makeWsSync } from '@livestore/sync-cf/client'
-import { SyncPayload, schema } from '@repo/schema'
+import { SyncPayload, schema } from '@repo/store'
 import Constants from 'expo-constants'
 import { unstable_batchedUpdates as batchUpdates } from 'react-native'
 import { authClient } from '../lib/auth-client'

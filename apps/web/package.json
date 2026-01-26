@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "clean": "rm -rf dist .vite",
     "dev": "vite",
     "build": "tsc && vite build",
     "build:preview": "tsc && vite build --mode preview",
@@ -25,8 +26,7 @@
     "@livestore/react": "catalog:",
     "@livestore/sync-cf": "catalog:",
     "@livestore/wa-sqlite": "catalog:",
-    "@repo/core": "workspace:*",
-    "@repo/schema": "workspace:*",
+    "@repo/store": "workspace:*",
     "@repo/ui": "workspace:*",
     "@tanstack/react-router": "^1.93.0",
     "better-auth": "^1.2.0",
