@@ -51,7 +51,7 @@ function FileSyncProviderInner({ children }: FileSyncProviderProps) {
       fileSystem: opfsLayer(),
       remote: {
         signerBaseUrl: `${API_URL}/api`,
-        authToken: token,
+        authToken: () => getToken(),
       },
       userId, // Pass userId to detect user changes
       options: {

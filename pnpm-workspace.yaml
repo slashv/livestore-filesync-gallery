@@ -2,22 +2,81 @@ packages:
   - "apps/*"
   - "packages/*"
   - "libs/livestore-filesync/packages/*"
+  - "libs/livestore/packages/@livestore/*"
 
 catalog:
-  # LiveStore packages - update version here to update across all apps
-  "@livestore/adapter-expo": "0.4.0-dev.22"
-  "@livestore/adapter-node": "0.4.0-dev.22"
-  "@livestore/adapter-web": "0.4.0-dev.22"
-  "@livestore/devtools-expo": "0.4.0-dev.22"
-  "@livestore/devtools-vite": "0.4.0-dev.22"
-  "@livestore/livestore": "0.4.0-dev.22"
-  "@livestore/peer-deps": "0.4.0-dev.22"
-  "@livestore/react": "0.4.0-dev.22"
-  "@livestore/sync-cf": "0.4.0-dev.22"
-  "@livestore/utils": "0.4.0-dev.22"
-  "@livestore/wa-sqlite": "0.4.0-dev.22"
+  # Type packages (from livestore)
+  "@types/react": 19.2.7
+  "@types/react-dom": 19.2.3
+  "@types/node": 25.0.3
+  "@types/chrome": 0.1.4
+  "@types/bun": 1.2.21
+  "@types/web": 0.0.264
 
-  # Effect - must match the version used by LiveStore (check livestore/pnpm-workspace.yaml)
-  "@effect/platform": "0.93.8"
-  "@effect/platform-node": "0.103.0"
-  "effect": "3.19.12"
+  # Build tools (from livestore)
+  typescript: 5.9.3
+  vite: 7.3.0
+  vitest: 4.0.16
+  "@vitest/ui": 3.2.4
+  "@vitejs/plugin-react": 5.1.2
+
+  # Styling (from livestore)
+  tailwindcss: 4.1.18
+  "@tailwindcss/vite": 4.1.18
+
+  # React ecosystem (from livestore)
+  react: 19.2.3
+  "react-dom": 19.2.3
+
+  # SolidJS ecosystem (from livestore)
+  "solid-js": 1.9.9
+
+  # Testing (from livestore)
+  "@playwright/test": 1.57.0
+
+  # Effect - must match the version used by LiveStore
+  "@effect/ai": 0.33.2
+  "@effect/ai-openai": 0.37.2
+  "@effect/cli": 0.73.0
+  "@effect/experimental": 0.58.0
+  effect: 3.19.14
+  "@effect/cluster": 0.56.1
+  "@effect/rpc": 0.73.0
+  "@effect/language-service": 0.63.2
+  "@effect/platform": 0.94.1
+  "@effect/platform-browser": 0.74.0
+  "@effect/platform-bun": 0.87.0
+  "@effect/platform-node": 0.104.0
+  "@effect/platform-node-shared": 0.57.0
+  "@effect/printer": 0.47.0
+  "@effect/printer-ansi": 0.47.0
+  "@effect/opentelemetry": 0.60.0
+  "@effect/sql": 0.49.0
+  "@effect/sql-sqlite-node": 0.49.1
+  "@effect/typeclass": 0.38.0
+  "@effect/vitest": 0.27.0
+  "@effect/workflow": 0.16.0
+
+  # OpenTelemetry (from livestore)
+  "@opentelemetry/api": 1.9.0
+  "@opentelemetry/context-zone": 2.2.0
+  "@opentelemetry/core": 2.2.0
+  "@opentelemetry/exporter-metrics-otlp-grpc": 0.208.0
+  "@opentelemetry/exporter-metrics-otlp-http": 0.208.0
+  "@opentelemetry/exporter-trace-otlp-grpc": 0.208.0
+  "@opentelemetry/exporter-trace-otlp-http": 0.208.0
+  "@opentelemetry/otlp-exporter-base": 0.208.0
+  "@opentelemetry/otlp-transformer": 0.208.0
+  "@opentelemetry/resources": 2.2.0
+  "@opentelemetry/sdk-metrics": 2.2.0
+  "@opentelemetry/sdk-trace-base": 2.2.0
+  "@opentelemetry/sdk-trace-node": 2.2.0
+  "@opentelemetry/sdk-trace-web": 2.2.0
+  "@opentelemetry/semantic-conventions": 1.38.0
+
+  # Common utilities (from livestore)
+  graphql: 16.11.0
+
+  # Cloudflare tools (from livestore)
+  wrangler: 4.42.2
+  "@cloudflare/workers-types": 4.20251118.0

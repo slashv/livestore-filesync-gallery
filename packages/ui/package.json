@@ -23,13 +23,13 @@
     "@repo/store": "workspace:*"
   },
   "peerDependencies": {
-    "@livestore/livestore": "catalog:",
-    "@livestore/react": "catalog:",
+    "@livestore/livestore": "workspace:*",
+    "@livestore/react": "workspace:*",
     "react": "^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
-    "@livestore/livestore": "catalog:",
-    "@livestore/react": "catalog:",
+    "@livestore/livestore": "workspace:*",
+    "@livestore/react": "workspace:*",
     "@repo/tsconfig": "workspace:*",
     "@types/react": "^19.0.0",
     "react": "^19.0.0",

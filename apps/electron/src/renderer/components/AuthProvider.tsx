@@ -1,6 +1,6 @@
 import type { AuthContextType, User } from '@repo/ui'
 import { type ReactNode, createContext, useContext, useEffect, useState } from 'react'
-import { authClient, clearToken, getToken } from '~/lib/auth-client'
+import { authClient, signOut as authSignOut, clearToken, getToken } from '~/lib/auth-client'
 
 const AuthContext = createContext<AuthContextType | null>(null)
 
@@ -78,7 +78,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const handleSignOut = async () => {
     try {
-      await authClient.signOut()
+      // Use the wrapped signOut that disposes FileSync/Thumbnails singletons
+      // before signing out, ensuring stale auth tokens are cleared
+      await authSignOut()
     } catch {
       // Ignore errors
     }
